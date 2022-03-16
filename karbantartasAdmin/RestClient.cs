@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace karbantartasAdmin
 {
@@ -100,6 +101,7 @@ namespace karbantartasAdmin
                         }
                     }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -126,7 +128,7 @@ namespace karbantartasAdmin
             //request.Headers.Add("userId", data.GetValue("id").ToString());
             //request.Headers.Add("token", data.GetValue("token").ToString());
 
-            if (request.Method == "PUT")
+            if (request.Method == "PUT" || request.Method == "POST")
             {
                 request.ContentType = "application/json";
                 using (StreamWriter swJSONPayload = new StreamWriter(request.GetRequestStream()))

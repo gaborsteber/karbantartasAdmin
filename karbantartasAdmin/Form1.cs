@@ -25,7 +25,7 @@ namespace karbantartasAdmin
         private void GET_Click(object sender, EventArgs e)
         {
             RestClient rClient = new RestClient();
-            rClient.endPoint = "https://localhost:44371/api/roles" + text1.Text;
+            //rClient.endPoint = "https://localhost:44371/api/roles" + text1.Text;
             debugOutput("Rest Client Created");
             string strResponse = string.Empty;
             strResponse = rClient.makeRequest();
@@ -39,9 +39,9 @@ namespace karbantartasAdmin
             try
             {
                 System.Diagnostics.Debug.Write(strDebugText + Environment.NewLine);
-                textValasz.Text = textValasz.Text + strDebugText + Environment.NewLine;
+                /*textValasz.Text = textValasz.Text + strDebugText + Environment.NewLine;
                 textValasz.SelectionStart = textValasz.TextLength;
-                textValasz.ScrollToCaret();
+                textValasz.ScrollToCaret();*/
             }
             catch (Exception ex)
             {
@@ -77,9 +77,14 @@ namespace karbantartasAdmin
             userLogedIn.Add("occupationId", jSONResponse.GetValue("occupationId"));
             
             debugOutput(strResponse);
-            jsonTxtBox.Text = userLogedIn.GetValue("token").ToString();
+            //jsonTxtBox.Text = userLogedIn.GetValue("token").ToString();
             Administrator newScreen = new Administrator(userLogedIn);
+            userNameLbl.Text = userLogedIn.GetValue("fullName").ToString();
+            loginAsGroup.Visible = true;
+            userNameLbl.Visible = true;
             newScreen.Show();
+            usernameTxtBox.Clear();
+            passTxtBox.Clear();
 
 
         }
@@ -87,11 +92,13 @@ namespace karbantartasAdmin
         private void button1_Click(object sender, EventArgs e)
         {
             userLogedIn.Remove("token");
-            jsonTxtBox.Text = userLogedIn.ToString();
+            //jsonTxtBox.Text = userLogedIn.ToString();
             RestClient rClient = new RestClient();
             rClient.httpMethod = httpVerb.PUT;
             rClient.endPoint = "https://localhost:44336/api/users/"+(Int16)userLogedIn.GetValue("id");
             rClient.takeRequest(userLogedIn);
+            userNameLbl.Visible = false;
+            loginAsGroup.Visible = false;
             userLogedIn.RemoveAll();
         }
 
@@ -109,6 +116,16 @@ namespace karbantartasAdmin
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void jsonTxtBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userNameLbl_Click(object sender, EventArgs e)
         {
 
         }
