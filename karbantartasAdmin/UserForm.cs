@@ -87,7 +87,7 @@ namespace karbantartasAdmin
             }
             foreach (JObject jObject1 in responseOfQuery)
             {
-                string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("fullName").ToString() + " - Felhasználónév: " + jObject1.GetValue("username").ToString();
+                string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("fullName").ToString() + " - Felhasználónév: " + jObject1.GetValue("username").ToString() + " - FoglalkozasId: " + jObject1.GetValue("occupationId");
                 queryListBox.Items.Add(listElement);
             }
 
