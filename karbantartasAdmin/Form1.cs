@@ -39,9 +39,6 @@ namespace karbantartasAdmin
             try
             {
                 System.Diagnostics.Debug.Write(strDebugText + Environment.NewLine);
-                /*textValasz.Text = textValasz.Text + strDebugText + Environment.NewLine;
-                textValasz.SelectionStart = textValasz.TextLength;
-                textValasz.ScrollToCaret();*/
             }
             catch (Exception ex)
             {
@@ -51,13 +48,10 @@ namespace karbantartasAdmin
 
         private void usernameTxtBox_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            
-            
             user.Username = usernameTxtBox.Text;
             user.Password = passTxtBox.Text;
             userLogedIn.Add("username", usernameTxtBox.Text);
@@ -67,32 +61,42 @@ namespace karbantartasAdmin
             rClient.endPoint = "https://localhost:44336/api/users?luname="+ user.Username + "&lpass=" + user.Password;          
             Newtonsoft.Json.Linq.JObject jSONResponse = null;
             string strResponse = string.Empty;
-            strResponse = rClient.makeRequest();
+                strResponse = rClient.makeRequest();
+            
             jSONResponse = JObject.Parse(strResponse);
-
-            userLogedIn.Add("id", jSONResponse.GetValue("id"));
-            userLogedIn.Add("fullName", jSONResponse.GetValue("fullName"));
-            userLogedIn.Add("roleId", jSONResponse.GetValue("roleId"));
-            userLogedIn.Add("token", jSONResponse.GetValue("token"));
-            userLogedIn.Add("occupationId", jSONResponse.GetValue("occupationId"));
+                userLogedIn.Add("id", jSONResponse.GetValue("id"));
+                userLogedIn.Add("fullName", jSONResponse.GetValue("fullName"));
+                userLogedIn.Add("roleId", jSONResponse.GetValue("roleId"));
+                userLogedIn.Add("token", jSONResponse.GetValue("token"));
+                userLogedIn.Add("occupationId", jSONResponse.GetValue("occupationId"));
             
             debugOutput(strResponse);
-            //jsonTxtBox.Text = userLogedIn.GetValue("token").ToString();
-            Administrator newScreen = new Administrator(userLogedIn);
-            userNameLbl.Text = userLogedIn.GetValue("fullName").ToString();
-            loginAsGroup.Visible = true;
-            userNameLbl.Visible = true;
-            newScreen.Show();
-            usernameTxtBox.Clear();
-            passTxtBox.Clear();
-
-
+            
+            if (strResponse != "{}")
+            {
+                Administrator newScreen = new Administrator(userLogedIn);
+                userNameLbl.Text = userLogedIn.GetValue("fullName").ToString();
+                loginAsGroup.Visible = true;
+                userNameLbl.Visible = true;
+                newScreen.Show();
+                usernameTxtBox.Clear();
+                passTxtBox.Clear();
+                unauthLbl.Visible = false;
+                loginButton.Enabled = false;
+            }
+            else
+            {
+                userLogedIn.RemoveAll();
+                unauthLbl.Visible = true;
+                usernameTxtBox.Clear();
+                passTxtBox.Clear();
+                
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             userLogedIn.Remove("token");
-            //jsonTxtBox.Text = userLogedIn.ToString();
             RestClient rClient = new RestClient();
             rClient.httpMethod = httpVerb.PUT;
             rClient.endPoint = "https://localhost:44336/api/users/"+(Int16)userLogedIn.GetValue("id");
@@ -100,34 +104,21 @@ namespace karbantartasAdmin
             userNameLbl.Visible = false;
             loginAsGroup.Visible = false;
             userLogedIn.RemoveAll();
+            loginButton.Enabled = true;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (userLogedIn.GetValue("token") != null)
             { 
-            userLogedIn.Remove("token");
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.PUT;
-            rClient.endPoint = "https://localhost:44336/api/users/" + (Int16)userLogedIn.GetValue("id");
-            rClient.takeRequest(userLogedIn);
-            userLogedIn.RemoveAll();
+                userLogedIn.Remove("token");
+                RestClient rClient = new RestClient();
+                rClient.httpMethod = httpVerb.PUT;
+                rClient.endPoint = "https://localhost:44336/api/users/" + (Int16)userLogedIn.GetValue("id");
+                rClient.takeRequest(userLogedIn);
+                userLogedIn.RemoveAll();
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void jsonTxtBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void userNameLbl_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

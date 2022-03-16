@@ -36,6 +36,7 @@
             this.loginButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.unauthLbl = new System.Windows.Forms.Label();
             this.userNameLbl = new System.Windows.Forms.Label();
             this.loginAsGroup = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
@@ -57,12 +58,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(39, 56);
+            this.label1.Location = new System.Drawing.Point(39, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 18);
             this.label1.TabIndex = 4;
             this.label1.Text = "Felhasználónév";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // passTxtBox
             // 
@@ -78,9 +78,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.Control;
+            this.label2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(39, 111);
+            this.label2.Location = new System.Drawing.Point(39, 112);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 18);
             this.label2.TabIndex = 6;
@@ -89,7 +89,7 @@
             // loginButton
             // 
             this.loginButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.loginButton.Location = new System.Drawing.Point(79, 177);
+            this.loginButton.Location = new System.Drawing.Point(79, 190);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(221, 41);
             this.loginButton.TabIndex = 3;
@@ -110,6 +110,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.groupBox1.Controls.Add(this.unauthLbl);
             this.groupBox1.Controls.Add(this.loginButton);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.passTxtBox);
@@ -123,6 +125,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bejelentkezés";
             // 
+            // unauthLbl
+            // 
+            this.unauthLbl.AutoSize = true;
+            this.unauthLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.unauthLbl.Location = new System.Drawing.Point(102, 162);
+            this.unauthLbl.Name = "unauthLbl";
+            this.unauthLbl.Size = new System.Drawing.Size(165, 20);
+            this.unauthLbl.TabIndex = 15;
+            this.unauthLbl.Text = "Sikertelen azonosítás!";
+            this.unauthLbl.Visible = false;
+            // 
             // userNameLbl
             // 
             this.userNameLbl.AutoSize = true;
@@ -133,10 +146,10 @@
             this.userNameLbl.TabIndex = 12;
             this.userNameLbl.Text = "Kiss Gábor";
             this.userNameLbl.Visible = false;
-            this.userNameLbl.Click += new System.EventHandler(this.userNameLbl_Click);
             // 
             // loginAsGroup
             // 
+            this.loginAsGroup.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.loginAsGroup.Controls.Add(this.button1);
             this.loginAsGroup.Controls.Add(this.userNameLbl);
             this.loginAsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -157,6 +170,7 @@
             this.Controls.Add(this.loginAsGroup);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Karbantartás Adminisztrációs Felület";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -178,6 +192,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label userNameLbl;
         private System.Windows.Forms.GroupBox loginAsGroup;
+        private System.Windows.Forms.Label unauthLbl;
     }
 }
 

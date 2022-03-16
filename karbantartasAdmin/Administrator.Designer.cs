@@ -33,55 +33,74 @@
             this.addEquipment = new System.Windows.Forms.Button();
             this.addOccupationButton = new System.Windows.Forms.Button();
             this.userButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addMainCategory
             // 
+            this.addMainCategory.BackColor = System.Drawing.SystemColors.ControlDark;
             this.addMainCategory.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addMainCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.addMainCategory.Location = new System.Drawing.Point(305, 108);
+            this.addMainCategory.Location = new System.Drawing.Point(306, 258);
             this.addMainCategory.Name = "addMainCategory";
             this.addMainCategory.Size = new System.Drawing.Size(200, 60);
             this.addMainCategory.TabIndex = 0;
             this.addMainCategory.Text = "Kategóriák adminisztrálása";
-            this.addMainCategory.UseVisualStyleBackColor = true;
+            this.addMainCategory.UseVisualStyleBackColor = false;
             this.addMainCategory.Click += new System.EventHandler(this.addMainCategory_Click);
             // 
             // addEquipment
             // 
+            this.addEquipment.BackColor = System.Drawing.SystemColors.ControlDark;
             this.addEquipment.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addEquipment.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.addEquipment.Location = new System.Drawing.Point(582, 108);
+            this.addEquipment.Location = new System.Drawing.Point(306, 177);
             this.addEquipment.Name = "addEquipment";
             this.addEquipment.Size = new System.Drawing.Size(200, 60);
             this.addEquipment.TabIndex = 1;
             this.addEquipment.Text = "Eszközök adminisztrálása";
-            this.addEquipment.UseVisualStyleBackColor = true;
+            this.addEquipment.UseVisualStyleBackColor = false;
             this.addEquipment.Click += new System.EventHandler(this.addEquipment_Click);
             // 
             // addOccupationButton
             // 
+            this.addOccupationButton.BackColor = System.Drawing.SystemColors.ControlDark;
             this.addOccupationButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.addOccupationButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.addOccupationButton.Location = new System.Drawing.Point(51, 278);
+            this.addOccupationButton.Location = new System.Drawing.Point(306, 337);
             this.addOccupationButton.Name = "addOccupationButton";
             this.addOccupationButton.Size = new System.Drawing.Size(200, 60);
             this.addOccupationButton.TabIndex = 2;
             this.addOccupationButton.Text = "Végzettségek adminisztrálása";
-            this.addOccupationButton.UseVisualStyleBackColor = true;
+            this.addOccupationButton.UseVisualStyleBackColor = false;
             this.addOccupationButton.Click += new System.EventHandler(this.addOccupationButton_Click);
             // 
             // userButton
             // 
+            this.userButton.BackColor = System.Drawing.SystemColors.ControlDark;
             this.userButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.userButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.userButton.Location = new System.Drawing.Point(51, 108);
+            this.userButton.Location = new System.Drawing.Point(306, 93);
             this.userButton.Name = "userButton";
             this.userButton.Size = new System.Drawing.Size(200, 60);
             this.userButton.TabIndex = 3;
             this.userButton.Text = "Felhasználók adminisztrálása";
-            this.userButton.UseVisualStyleBackColor = true;
+            this.userButton.UseVisualStyleBackColor = false;
             this.userButton.Click += new System.EventHandler(this.userButton_Click);
+            // 
+            // backButton
+            // 
+            this.backButton.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.backButton.Cursor = System.Windows.Forms.Cursors.Default;
+            this.backButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDark;
+            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.backButton.Location = new System.Drawing.Point(14, 12);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(106, 32);
+            this.backButton.TabIndex = 4;
+            this.backButton.Text = "Vissza";
+            this.backButton.UseVisualStyleBackColor = false;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // Administrator
             // 
@@ -89,6 +108,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(834, 461);
+            this.Controls.Add(this.backButton);
             this.Controls.Add(this.userButton);
             this.Controls.Add(this.addOccupationButton);
             this.Controls.Add(this.addEquipment);
@@ -106,5 +126,6 @@
         private System.Windows.Forms.Button addEquipment;
         private System.Windows.Forms.Button addOccupationButton;
         private System.Windows.Forms.Button userButton;
+        private System.Windows.Forms.Button backButton;
     }
 }

@@ -39,5 +39,10 @@ namespace karbantartasAdmin
             UserForm newScreen = new UserForm(userLogedIn);
             newScreen.Show();
         }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

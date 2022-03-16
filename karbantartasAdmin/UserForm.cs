@@ -17,7 +17,9 @@ namespace karbantartasAdmin
         List<JObject> responseOfQuery = new List<JObject>();
         List<JObject> responseOfRolesQuery = new List<JObject>();
         List<JObject> responseOfOccQuery = new List<JObject>();
+        List<JObject> responseOfEditQuery = new List<JObject>();
         JObject userToDb = new JObject();
+        JObject userEditToDb = new JObject();
         public UserForm(JObject logedInUser)
         {
             InitializeComponent();
@@ -40,6 +42,7 @@ namespace karbantartasAdmin
             {
                 string listElement = jObject1.GetValue("roleName").ToString();
                 rolesComboBox.Items.Add(listElement);
+                editUserRoleComboBox.Items.Add(listElement);
             }
 
             
@@ -61,8 +64,29 @@ namespace karbantartasAdmin
             {
                 string listElement = jObject1.GetValue("occupationName").ToString();
                 occComboBox.Items.Add(listElement);
+                editUserOccComboBox.Items.Add(listElement);
             }
 
+            jArray.RemoveAll();
+            responseOfQuery.Clear();
+            queryListBox.Items.Clear();
+
+            rClient = new RestClient();
+            rClient.httpMethod = httpVerb.GET;
+            rClient.endPoint = "https://localhost:44336/api/users";
+            strResponse = string.Empty;
+            strResponse = rClient.makeRequest(userLogedIn);
+            jArray = JArray.Parse(strResponse);
+            foreach (JObject jObject in jArray)
+            {
+                System.Diagnostics.Debug.WriteLine(jObject.ToString());
+                responseOfEditQuery.Add(jObject);
+            }
+            foreach (JObject jObject1 in responseOfEditQuery)
+            {
+                string listElement = jObject1.GetValue("fullName").ToString();
+                userForEditComboBox.Items.Add(listElement);
+            }
 
         }
 
@@ -135,12 +159,48 @@ namespace karbantartasAdmin
             RestClient rClient = new RestClient();
             rClient.httpMethod = httpVerb.POST;
             rClient.endPoint = "https://localhost:44336/api/users";
-            Newtonsoft.Json.Linq.JObject jSONResponse = null;
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(userToDb);
             usernameTxtBox.Clear();
             fullNameTxtBox.Clear();
             passTxtBox.Clear();
+        }
+
+        private void editUserDataButton_Click(object sender, EventArgs e)
+        {
+            userEditToDb.Add("id", responseOfEditQuery[userForEditComboBox.SelectedIndex].GetValue("id"));
+            userEditToDb.Add("username", userEditUsernameTxtBox.Text);
+            userEditToDb.Add("fullName", userForEditComboBox.Text);
+            userEditToDb.Add("password", userEditPassTxtBox.Text);
+            userEditToDb.Add("token", null);
+            RestClient rClient = new RestClient();
+            rClient.httpMethod = httpVerb.PUT;
+            rClient.endPoint = "https://localhost:44336/api/users/" + Int32.Parse(userEditToDb.GetValue("id").ToString());
+            string strResponse = string.Empty;
+            strResponse = rClient.takeRequest(userEditToDb);
+            System.Diagnostics.Debug.WriteLine(userEditToDb);
+            System.Diagnostics.Debug.WriteLine(strResponse);
+            // usernameTxtBox.Clear();
+            //fullNameTxtBox.Clear();
+            //passTxtBox.Clear();
+            userEditToDb.RemoveAll();
+        }
+
+        private void editUserRoleComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            userEditToDb.Remove("roleId");
+            userEditToDb.Add("roleId", responseOfRolesQuery[editUserRoleComboBox.SelectedIndex].GetValue("id"));
+        }
+
+        private void editUserOccComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            userEditToDb.Remove("occupationId");
+            userEditToDb.Add("occupationId", responseOfOccQuery[editUserOccComboBox.SelectedIndex].GetValue("id"));
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
