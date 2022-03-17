@@ -96,26 +96,29 @@ namespace karbantartasAdmin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            userLogedIn.Remove("token");
+            JObject userLogOut = new JObject(userLogedIn);
+            userLogOut.Remove("token");
             RestClient rClient = new RestClient();
             rClient.httpMethod = httpVerb.PUT;
             rClient.endPoint = "https://localhost:44336/api/users/"+(Int16)userLogedIn.GetValue("id");
-            rClient.takeRequest(userLogedIn);
+            rClient.takeRequest(userLogOut, userLogedIn);
             userNameLbl.Visible = false;
             loginAsGroup.Visible = false;
             userLogedIn.RemoveAll();
+            userLogOut.RemoveAll();
             loginButton.Enabled = true;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (userLogedIn.GetValue("token") != null)
-            { 
-                userLogedIn.Remove("token");
+            {
+                JObject userLogOut = new JObject(userLogedIn);
+                userLogOut.Remove("token");
                 RestClient rClient = new RestClient();
                 rClient.httpMethod = httpVerb.PUT;
                 rClient.endPoint = "https://localhost:44336/api/users/" + (Int16)userLogedIn.GetValue("id");
-                rClient.takeRequest(userLogedIn);
+                rClient.takeRequest(userLogOut, userLogedIn);
                 userLogedIn.RemoveAll();
             }
         }

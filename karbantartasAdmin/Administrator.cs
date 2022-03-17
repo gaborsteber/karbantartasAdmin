@@ -26,7 +26,8 @@ namespace karbantartasAdmin
         }
         private void addEquipment_Click(object sender, EventArgs e)
         {
-
+            Assets newScreen = new Assets(userLogedIn);
+            newScreen.Show();
         }
         private void addOccupationButton_Click(object sender, EventArgs e)
         {

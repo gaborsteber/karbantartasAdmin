@@ -26,36 +26,8 @@ namespace karbantartasAdmin
         {
             InitializeComponent();
             userLogedIn = logedInUser;
-
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.GET;
-            rClient.endPoint = "https://localhost:44336/api/roles";
-            responseOfRolesQuery = queryFromDB(rClient);
-            fillRolesLists(responseOfRolesQuery);
-                      
-            rClient = new RestClient();
-            rClient.httpMethod = httpVerb.GET;
-            rClient.endPoint = "https://localhost:44336/api/occupations";
-            responseOfOccQuery = queryFromDB(rClient);
-            fillOccLists(responseOfOccQuery);
-
-            rClient = new RestClient();
-            rClient.httpMethod = httpVerb.GET;
-            rClient.endPoint = "https://localhost:44336/api/users";
-            responseOfEditQuery = queryFromDB(rClient);
-            fillEditLists(responseOfEditQuery);
-
-            rClient = new RestClient();
-            rClient.httpMethod = httpVerb.GET;
-            rClient.endPoint = "https://localhost:44336/api/users";
-            responseOfDeleteQuery = queryFromDB(rClient);
-            fillDelLists(responseOfDeleteQuery);
-            
-            /*responseOfDeleteQuery.Clear();
-            queryListBox.Items.Clear();*/
-            /*responseOfEditQuery.Clear();
-            queryListBox.Items.Clear();*/
-
+            reloadOtherLists();
+            reloadUserLists();
         }
 
         private void queryAllUser_Click(object sender, EventArgs e)
@@ -63,13 +35,11 @@ namespace karbantartasAdmin
             responseOfQuery.Clear();
             queryListBox.Items.Clear();
 
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.GET;
-            rClient.endPoint = "https://localhost:44336/api/users";
+            RestClient rClient = getClient("https://localhost:44336/api/users");
             responseOfQuery = queryFromDB(rClient);
             fillQueryListBox(responseOfQuery);           
           
-        }
+        }      
 
         private void queryUserButton_Click(object sender, EventArgs e)
         {
@@ -77,10 +47,7 @@ namespace karbantartasAdmin
             queryListBox.Items.Clear();
             if (userIdTxtBox.Text != "")
             {
-                RestClient rClient = new RestClient();
-                rClient.httpMethod = httpVerb.GET;
-                rClient.endPoint = "https://localhost:44336/api/users/" + Int32.Parse(userIdTxtBox.Text);
-                Newtonsoft.Json.Linq.JObject jSONResponse = null;
+                RestClient rClient = getClient("https://localhost:44336/api/users/" + Int32.Parse(userIdTxtBox.Text));
                 string strResponse = string.Empty;
                 strResponse = rClient.makeRequest(userLogedIn);
                 JObject jObject1 = JObject.Parse(strResponse);
@@ -110,14 +77,15 @@ namespace karbantartasAdmin
             userToDb.Add("username", usernameTxtBox.Text);
             userToDb.Add("fullName", fullNameTxtBox.Text);
             userToDb.Add("password", passTxtBox.Text);
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.POST;
-            rClient.endPoint = "https://localhost:44336/api/users";
+            
+            
+            RestClient rClient = postClient("https://localhost:44336/api/users/");
             string strResponse = string.Empty;
-            strResponse = rClient.takeRequest(userToDb);
+            strResponse = rClient.takeRequest(userToDb, userLogedIn);
             usernameTxtBox.Clear();
             fullNameTxtBox.Clear();
             passTxtBox.Clear();
+            reloadUserLists();
         }
 
         private void editUserDataButton_Click(object sender, EventArgs e)
@@ -127,17 +95,12 @@ namespace karbantartasAdmin
             userEditToDb.Add("fullName", userForEditComboBox.Text);
             userEditToDb.Add("password", userEditPassTxtBox.Text);
             userEditToDb.Add("token", null);
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.PUT;
-            rClient.endPoint = "https://localhost:44336/api/users/" + Int32.Parse(userEditToDb.GetValue("id").ToString());
+            
+            RestClient rClient = putClient("https://localhost:44336/api/users/" + Int32.Parse(userEditToDb.GetValue("id").ToString()));
             string strResponse = string.Empty;
-            strResponse = rClient.takeRequest(userEditToDb);
-            System.Diagnostics.Debug.WriteLine(userEditToDb);
-            System.Diagnostics.Debug.WriteLine(strResponse);
-            // usernameTxtBox.Clear();
-            //fullNameTxtBox.Clear();
-            //passTxtBox.Clear();
+            strResponse = rClient.takeRequest(userEditToDb, userLogedIn);
             userEditToDb.RemoveAll();
+            reloadUserLists();
         }
 
         private void editUserRoleComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -159,18 +122,13 @@ namespace karbantartasAdmin
 
         private void deleteUserButton_Click(object sender, EventArgs e)
         {
-           
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.DELETE;
-            rClient.endPoint = "https://localhost:44336/api/users/" + Int32.Parse(userDeleteFromDb.GetValue("id").ToString());
+
+            RestClient rClient = deleteClient("https://localhost:44336/api/users/" + Int32.Parse(userDeleteFromDb.GetValue("id").ToString()));
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(userLogedIn);
-            //System.Diagnostics.Debug.WriteLine(userEditToDb);
             System.Diagnostics.Debug.WriteLine(strResponse);
-            // usernameTxtBox.Clear();
-            //fullNameTxtBox.Clear();
-            //passTxtBox.Clear();
             userDeleteFromDb.RemoveAll();
+            reloadUserLists();
 
         }
 
@@ -178,8 +136,6 @@ namespace karbantartasAdmin
         {
             userDeleteFromDb.Remove("id");
             userDeleteFromDb.Add("id", responseOfDeleteQuery[deleteUserComboBox.SelectedIndex].GetValue("id"));
-            
-
         }
         private List<JObject> queryFromDB(RestClient kliens)
         {
@@ -238,8 +194,64 @@ namespace karbantartasAdmin
                 queryListBox.Items.Add(listElement);
             }
         }
-}
-    
+        private void reloadUserLists()
+        {
+            userForEditComboBox.Items.Clear();
+            deleteUserComboBox.Items.Clear();
+
+            RestClient rClient = getClient("https://localhost:44336/api/users");
+            responseOfEditQuery = queryFromDB(rClient);
+            fillEditLists(responseOfEditQuery);
+            responseOfDeleteQuery = queryFromDB(rClient);
+            fillDelLists(responseOfDeleteQuery);
+        }
+        private void reloadOtherLists()
+        {
+            occComboBox.Items.Clear();
+            rolesComboBox.Items.Clear();
+            editUserOccComboBox.Items.Clear();
+            editUserRoleComboBox.Items.Clear();
+            
+            RestClient rClient = getClient("https://localhost:44336/api/roles");
+            responseOfRolesQuery = queryFromDB(rClient);
+            fillRolesLists(responseOfRolesQuery);
+
+            rClient = getClient("https://localhost:44336/api/occupations");
+            responseOfOccQuery = queryFromDB(rClient);
+            fillOccLists(responseOfOccQuery);
+        }
+        private RestClient getClient(string url)
+        {
+            RestClient rClient = new RestClient();
+            rClient.httpMethod = httpVerb.GET;
+            rClient.endPoint = url;
+            return rClient;
+        }
+        private RestClient postClient(string url)
+        {
+            RestClient rClient = new RestClient();
+            rClient.httpMethod = httpVerb.POST;
+            rClient.endPoint = url;
+            return rClient;
+        }
+        private RestClient putClient(string url)
+        {
+            RestClient rClient = new RestClient();
+            rClient.httpMethod = httpVerb.PUT;
+            rClient.endPoint = url;
+            return rClient;
+        }
+        private RestClient deleteClient(string url)
+        {
+            RestClient rClient = new RestClient();
+            rClient.httpMethod = httpVerb.DELETE;
+            rClient.endPoint = url;
+            return rClient;
+        }
+
+
+    }
+
 }
 
 
