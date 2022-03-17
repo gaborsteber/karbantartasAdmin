@@ -61,9 +61,13 @@
             this.editUserDataButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.backButton = new System.Windows.Forms.Button();
+            this.deleteUserComboBox = new System.Windows.Forms.ComboBox();
+            this.deleteUserButton = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // userIdTxtBox
@@ -126,7 +130,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.userIdTxtBox);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox1.Location = new System.Drawing.Point(14, 53);
+            this.groupBox1.Location = new System.Drawing.Point(14, 75);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(808, 152);
             this.groupBox1.TabIndex = 6;
@@ -181,7 +185,7 @@
             this.groupBox2.Controls.Add(this.passTxtBox);
             this.groupBox2.Controls.Add(this.usernameTxtBox);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox2.Location = new System.Drawing.Point(14, 228);
+            this.groupBox2.Location = new System.Drawing.Point(14, 250);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(405, 205);
             this.groupBox2.TabIndex = 11;
@@ -389,7 +393,7 @@
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.userForEditComboBox);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox3.Location = new System.Drawing.Point(445, 228);
+            this.groupBox3.Location = new System.Drawing.Point(445, 250);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(376, 205);
             this.groupBox3.TabIndex = 20;
@@ -407,12 +411,47 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // deleteUserComboBox
+            // 
+            this.deleteUserComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.deleteUserComboBox.FormattingEnabled = true;
+            this.deleteUserComboBox.Location = new System.Drawing.Point(27, 22);
+            this.deleteUserComboBox.Name = "deleteUserComboBox";
+            this.deleteUserComboBox.Size = new System.Drawing.Size(160, 24);
+            this.deleteUserComboBox.TabIndex = 20;
+            this.deleteUserComboBox.SelectedIndexChanged += new System.EventHandler(this.deleteUserComboBox_SelectedIndexChanged);
+            // 
+            // deleteUserButton
+            // 
+            this.deleteUserButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.deleteUserButton.Location = new System.Drawing.Point(217, 16);
+            this.deleteUserButton.Name = "deleteUserButton";
+            this.deleteUserButton.Size = new System.Drawing.Size(160, 32);
+            this.deleteUserButton.TabIndex = 20;
+            this.deleteUserButton.Text = "Felhasználó törlése";
+            this.deleteUserButton.UseVisualStyleBackColor = true;
+            this.deleteUserButton.Click += new System.EventHandler(this.deleteUserButton_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.groupBox4.Controls.Add(this.deleteUserButton);
+            this.groupBox4.Controls.Add(this.deleteUserComboBox);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.groupBox4.Location = new System.Drawing.Point(427, 7);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(394, 62);
+            this.groupBox4.TabIndex = 22;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Felhasználó törlése";
+            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(834, 461);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -426,6 +465,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -464,5 +504,8 @@
         private System.Windows.Forms.Button editUserDataButton;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.ComboBox deleteUserComboBox;
+        private System.Windows.Forms.Button deleteUserButton;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }

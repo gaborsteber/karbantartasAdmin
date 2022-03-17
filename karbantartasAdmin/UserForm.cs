@@ -18,103 +18,57 @@ namespace karbantartasAdmin
         List<JObject> responseOfRolesQuery = new List<JObject>();
         List<JObject> responseOfOccQuery = new List<JObject>();
         List<JObject> responseOfEditQuery = new List<JObject>();
+        List<JObject> responseOfDeleteQuery = new List<JObject>();
         JObject userToDb = new JObject();
         JObject userEditToDb = new JObject();
+        JObject userDeleteFromDb = new JObject();
         public UserForm(JObject logedInUser)
         {
             InitializeComponent();
             userLogedIn = logedInUser;
 
-            JArray jArray = new JArray();
-            jArray.RemoveAll();
             RestClient rClient = new RestClient();
             rClient.httpMethod = httpVerb.GET;
             rClient.endPoint = "https://localhost:44336/api/roles";
-            string strResponse = string.Empty;
-            strResponse = rClient.makeRequest(userLogedIn);
-            jArray = JArray.Parse(strResponse);
-            foreach (JObject jObject in jArray)
-            {
-                System.Diagnostics.Debug.WriteLine(jObject.ToString());
-                responseOfRolesQuery.Add(jObject);
-            }
-            foreach (JObject jObject1 in responseOfRolesQuery)
-            {
-                string listElement = jObject1.GetValue("roleName").ToString();
-                rolesComboBox.Items.Add(listElement);
-                editUserRoleComboBox.Items.Add(listElement);
-            }
-
-            
-            jArray.RemoveAll();
+            responseOfRolesQuery = queryFromDB(rClient);
+            fillRolesLists(responseOfRolesQuery);
+                      
             rClient = new RestClient();
             rClient.httpMethod = httpVerb.GET;
             rClient.endPoint = "https://localhost:44336/api/occupations";
-            strResponse = string.Empty;
-            strResponse = rClient.makeRequest(userLogedIn);
-            //JObject jsonResponse = JObject.Parse(strResponse);
-            jArray = JArray.Parse(strResponse);
-            //System.Diagnostics.Debug.WriteLine(jsonResponse.ToString());
-            foreach (JObject jObject in jArray)
-            {
-                System.Diagnostics.Debug.WriteLine(jObject.ToString());
-                responseOfOccQuery.Add(jObject);
-            }
-            foreach (JObject jObject1 in responseOfOccQuery)
-            {
-                string listElement = jObject1.GetValue("occupationName").ToString();
-                occComboBox.Items.Add(listElement);
-                editUserOccComboBox.Items.Add(listElement);
-            }
-
-            jArray.RemoveAll();
-            responseOfQuery.Clear();
-            queryListBox.Items.Clear();
+            responseOfOccQuery = queryFromDB(rClient);
+            fillOccLists(responseOfOccQuery);
 
             rClient = new RestClient();
             rClient.httpMethod = httpVerb.GET;
             rClient.endPoint = "https://localhost:44336/api/users";
-            strResponse = string.Empty;
-            strResponse = rClient.makeRequest(userLogedIn);
-            jArray = JArray.Parse(strResponse);
-            foreach (JObject jObject in jArray)
-            {
-                System.Diagnostics.Debug.WriteLine(jObject.ToString());
-                responseOfEditQuery.Add(jObject);
-            }
-            foreach (JObject jObject1 in responseOfEditQuery)
-            {
-                string listElement = jObject1.GetValue("fullName").ToString();
-                userForEditComboBox.Items.Add(listElement);
-            }
+            responseOfEditQuery = queryFromDB(rClient);
+            fillEditLists(responseOfEditQuery);
+
+            rClient = new RestClient();
+            rClient.httpMethod = httpVerb.GET;
+            rClient.endPoint = "https://localhost:44336/api/users";
+            responseOfDeleteQuery = queryFromDB(rClient);
+            fillDelLists(responseOfDeleteQuery);
+            
+            /*responseOfDeleteQuery.Clear();
+            queryListBox.Items.Clear();*/
+            /*responseOfEditQuery.Clear();
+            queryListBox.Items.Clear();*/
 
         }
 
         private void queryAllUser_Click(object sender, EventArgs e)
         {
-            JArray jArray = new JArray();
-            jArray.RemoveAll();
             responseOfQuery.Clear();
             queryListBox.Items.Clear();
 
             RestClient rClient = new RestClient();
             rClient.httpMethod = httpVerb.GET;
             rClient.endPoint = "https://localhost:44336/api/users";
-            Newtonsoft.Json.Linq.JObject jSONResponse = null;
-            string strResponse = string.Empty;
-            strResponse = rClient.makeRequest(userLogedIn);
-            jArray = JArray.Parse(strResponse);
-            foreach (JObject jObject in jArray)
-            {
-                System.Diagnostics.Debug.WriteLine(jObject.ToString());
-                responseOfQuery.Add(jObject);
-            }
-            foreach (JObject jObject1 in responseOfQuery)
-            {
-                string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("fullName").ToString() + " - Felhasználónév: " + jObject1.GetValue("username").ToString() + " - FoglalkozasId: " + jObject1.GetValue("occupationId");
-                queryListBox.Items.Add(listElement);
-            }
-
+            responseOfQuery = queryFromDB(rClient);
+            fillQueryListBox(responseOfQuery);           
+          
         }
 
         private void queryUserButton_Click(object sender, EventArgs e)
@@ -123,17 +77,17 @@ namespace karbantartasAdmin
             queryListBox.Items.Clear();
             if (userIdTxtBox.Text != "")
             {
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.GET;
-            rClient.endPoint = "https://localhost:44336/api/users/" + Int32.Parse(userIdTxtBox.Text);
-            Newtonsoft.Json.Linq.JObject jSONResponse = null;
-            string strResponse = string.Empty;
-            strResponse = rClient.makeRequest(userLogedIn);
-            JObject jObject1 = JObject.Parse(strResponse);
-            string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("fullName").ToString() + " - Felhasználónév: " + jObject1.GetValue("username").ToString();
-            queryListBox.Items.Add(listElement);
+                RestClient rClient = new RestClient();
+                rClient.httpMethod = httpVerb.GET;
+                rClient.endPoint = "https://localhost:44336/api/users/" + Int32.Parse(userIdTxtBox.Text);
+                Newtonsoft.Json.Linq.JObject jSONResponse = null;
+                string strResponse = string.Empty;
+                strResponse = rClient.makeRequest(userLogedIn);
+                JObject jObject1 = JObject.Parse(strResponse);
+                string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("fullName").ToString() + " - Felhasználónév: " + jObject1.GetValue("username").ToString();
+                queryListBox.Items.Add(listElement);
             }
-            //responseTxtBox.Text = strResponse;
+            //responseTxtBox.Text = strResponse;*/
 
         }
 
@@ -202,5 +156,150 @@ namespace karbantartasAdmin
         {
             this.Close();
         }
-    }
+
+        private void deleteUserButton_Click(object sender, EventArgs e)
+        {
+           
+            RestClient rClient = new RestClient();
+            rClient.httpMethod = httpVerb.DELETE;
+            rClient.endPoint = "https://localhost:44336/api/users/" + Int32.Parse(userDeleteFromDb.GetValue("id").ToString());
+            string strResponse = string.Empty;
+            strResponse = rClient.takeRequest(userLogedIn);
+            //System.Diagnostics.Debug.WriteLine(userEditToDb);
+            System.Diagnostics.Debug.WriteLine(strResponse);
+            // usernameTxtBox.Clear();
+            //fullNameTxtBox.Clear();
+            //passTxtBox.Clear();
+            userDeleteFromDb.RemoveAll();
+
+        }
+
+        private void deleteUserComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            userDeleteFromDb.Remove("id");
+            userDeleteFromDb.Add("id", responseOfDeleteQuery[deleteUserComboBox.SelectedIndex].GetValue("id"));
+            
+
+        }
+        private List<JObject> queryFromDB(RestClient kliens)
+        {
+            List<JObject> queryList = new List<JObject>();
+            JArray jArray = new JArray();
+            jArray.RemoveAll();
+            string strResponse = string.Empty;
+            strResponse = kliens.makeRequest(userLogedIn);
+            jArray = JArray.Parse(strResponse);
+            foreach (JObject jObject in jArray)
+            {
+                System.Diagnostics.Debug.WriteLine(jObject.ToString());
+                queryList.Add(jObject);
+            }
+            return queryList;
+        }
+        private void fillRolesLists(List<JObject> list)
+        {
+            foreach (JObject jObject1 in list)
+            {
+                string listElement = jObject1.GetValue("roleName").ToString();
+                rolesComboBox.Items.Add(listElement);
+                editUserRoleComboBox.Items.Add(listElement);
+            }
+        }
+        private void fillOccLists(List<JObject> list)
+        {
+            foreach (JObject jObject1 in list)
+            {
+                string listElement = jObject1.GetValue("occupationName").ToString();
+                occComboBox.Items.Add(listElement);
+                editUserOccComboBox.Items.Add(listElement);
+            }
+        }
+        private void fillEditLists(List<JObject> list)
+        {
+            foreach (JObject jObject1 in responseOfEditQuery)
+            {
+                string listElement = jObject1.GetValue("fullName").ToString();
+                userForEditComboBox.Items.Add(listElement);
+            }
+        }
+        private void fillDelLists(List<JObject> list)
+        {
+            foreach (JObject jObject1 in responseOfDeleteQuery)
+            {
+                string listElement = jObject1.GetValue("fullName").ToString();
+                deleteUserComboBox.Items.Add(listElement);
+            }
+        }
+        private void fillQueryListBox(List<JObject> list)
+        {
+            foreach (JObject jObject1 in responseOfQuery)
+            {
+                string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("fullName").ToString() + " - Felhasználónév: " + jObject1.GetValue("username").ToString() + " - FoglalkozasId: " + jObject1.GetValue("occupationId");
+                queryListBox.Items.Add(listElement);
+            }
+        }
 }
+    
+}
+
+
+/*strResponse = rClient.makeRequest(userLogedIn);
+           jArray = JArray.Parse(strResponse);
+           foreach (JObject jObject in jArray)
+           {
+               System.Diagnostics.Debug.WriteLine(jObject.ToString());
+               responseOfRolesQuery.Add(jObject);
+           }
+           foreach (JObject jObject1 in responseOfRolesQuery)
+           {
+               string listElement = jObject1.GetValue("roleName").ToString();
+               rolesComboBox.Items.Add(listElement);
+               editUserRoleComboBox.Items.Add(listElement);
+           }*/
+
+/*
+            strResponse = string.Empty;
+            strResponse = rClient.makeRequest(userLogedIn);
+            jArray = JArray.Parse(strResponse);
+            foreach (JObject jObject in jArray)
+            {
+                System.Diagnostics.Debug.WriteLine(jObject.ToString());
+                responseOfOccQuery.Add(jObject);
+            }
+            foreach (JObject jObject1 in responseOfOccQuery)
+            {
+                string listElement = jObject1.GetValue("occupationName").ToString();
+                occComboBox.Items.Add(listElement);
+                editUserOccComboBox.Items.Add(listElement);
+            }*/
+
+/* JArray jArray = new JArray();
+            jArray.RemoveAll();
+strResponse = string.Empty;
+strResponse = rClient.makeRequest(userLogedIn);
+jArray = JArray.Parse(strResponse);
+foreach (JObject jObject in jArray)
+{
+   System.Diagnostics.Debug.WriteLine(jObject.ToString());
+   responseOfEditQuery.Add(jObject);
+}
+foreach (JObject jObject1 in responseOfEditQuery)
+{
+   string listElement = jObject1.GetValue("fullName").ToString();
+   userForEditComboBox.Items.Add(listElement);
+}*/
+
+/*
+            strResponse = string.Empty;
+            strResponse = rClient.makeRequest(userLogedIn);
+            jArray = JArray.Parse(strResponse);
+            foreach (JObject jObject in jArray)
+            {
+                System.Diagnostics.Debug.WriteLine(jObject.ToString());
+                responseOfDeleteQuery.Add(jObject);
+            }
+            foreach (JObject jObject1 in responseOfDeleteQuery)
+            {
+                string listElement = jObject1.GetValue("fullName").ToString();
+                deleteUserComboBox.Items.Add(listElement);
+            }*/

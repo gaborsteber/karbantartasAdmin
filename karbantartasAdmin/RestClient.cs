@@ -117,7 +117,7 @@ namespace karbantartasAdmin
             return strResponseValue;
         }
 
-        
+
         public string takeRequest(JObject data)
         {
             string strResponseValue = string.Empty;
@@ -128,7 +128,7 @@ namespace karbantartasAdmin
             //request.Headers.Add("userId", data.GetValue("id").ToString());
             //request.Headers.Add("token", data.GetValue("token").ToString());
 
-            if (request.Method == "PUT" || request.Method == "POST")
+            if (request.Method == "PUT" || request.Method == "POST" || request.Method == "DELETE")
             {
                 request.ContentType = "application/json";
                 using (StreamWriter swJSONPayload = new StreamWriter(request.GetRequestStream()))
@@ -136,18 +136,18 @@ namespace karbantartasAdmin
                     swJSONPayload.Write(data);
                     swJSONPayload.Close();
                 }
-            }          
+            }
 
             HttpWebResponse response = null;
-            
-        try
+
+            try
             {
                 response = (HttpWebResponse)request.GetResponse();
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     throw new ApplicationException("error code: " + response.StatusCode.ToString());
                 }
-               
+
                 using (Stream responseStream = response.GetResponseStream())
                 {
                     if (responseStream != null)
@@ -173,8 +173,63 @@ namespace karbantartasAdmin
             return strResponseValue;
         }
 
-        public string logOutRequest(JObject data)
-        {
+            public string takeRequest(JObject data, JObject user)
+            {
+                string strResponseValue = string.Empty;
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(endPoint);
+
+                request.Method = httpMethod.ToString();
+                request.Headers.Add("userId", user.GetValue("id").ToString());
+                request.Headers.Add("token", user.GetValue("token").ToString());
+
+                if (request.Method == "PUT" || request.Method == "POST" || request.Method == "DELETE")
+                {
+                    request.ContentType = "application/json";
+                    using (StreamWriter swJSONPayload = new StreamWriter(request.GetRequestStream()))
+                    {
+                        swJSONPayload.Write(data);
+                        swJSONPayload.Close();
+                    }
+                }
+
+                HttpWebResponse response = null;
+
+                try
+                {
+                    response = (HttpWebResponse)request.GetResponse();
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new ApplicationException("error code: " + response.StatusCode.ToString());
+                    }
+
+                    using (Stream responseStream = response.GetResponseStream())
+                    {
+                        if (responseStream != null)
+                        {
+                            using (StreamReader reader = new StreamReader(responseStream))
+                            {
+                                strResponseValue = reader.ReadToEnd();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    strResponseValue = "{\"errorMessages\":[\"" + ex.Message.ToString() + "\"],\"errors\":{}}";
+                }
+                finally
+                {
+                    if (response != null)
+                    {
+                        ((IDisposable)response).Dispose();
+                    }
+                }
+                return strResponseValue;
+            }
+
+            public string logOutRequest(JObject data)
+            {
             string strResponseValue = string.Empty;
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(endPoint);
