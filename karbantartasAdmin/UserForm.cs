@@ -34,11 +34,9 @@ namespace karbantartasAdmin
         {
             responseOfQuery.Clear();
             queryListBox.Items.Clear();
-
             RestClient rClient = getClient("https://localhost:44336/api/users");
             responseOfQuery = queryFromDB(rClient);
-            fillQueryListBox(responseOfQuery);           
-          
+            fillQueryListBox(responseOfQuery);                 
         }      
 
         private void queryUserButton_Click(object sender, EventArgs e)
@@ -54,8 +52,6 @@ namespace karbantartasAdmin
                 string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("fullName").ToString() + " - Felhasználónév: " + jObject1.GetValue("username").ToString();
                 queryListBox.Items.Add(listElement);
             }
-            //responseTxtBox.Text = strResponse;*/
-
         }
 
         private void rolesComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -76,12 +72,11 @@ namespace karbantartasAdmin
         {
             userToDb.Add("username", usernameTxtBox.Text);
             userToDb.Add("fullName", fullNameTxtBox.Text);
-            userToDb.Add("password", passTxtBox.Text);
-            
-            
+            userToDb.Add("password", passTxtBox.Text);           
             RestClient rClient = postClient("https://localhost:44336/api/users/");
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(userToDb, userLogedIn);
+            System.Diagnostics.Debug.WriteLine(userToDb);
             usernameTxtBox.Clear();
             fullNameTxtBox.Clear();
             passTxtBox.Clear();

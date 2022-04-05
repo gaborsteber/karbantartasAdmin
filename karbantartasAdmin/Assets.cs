@@ -19,15 +19,12 @@ namespace karbantartasAdmin
         List<JObject> responseOfDeleteQuery = new List<JObject>();
         JObject assetEditToDb = new JObject();
         List<JObject> responseOfEditQuery = new List<JObject>();
+        JObject assetToDb = new JObject();
         public Assets(JObject logedInUser)
         {
             InitializeComponent();
             userLogedIn = logedInUser;
-            RestClient rClient = getClient("https://localhost:44336/api/assets");
-            responseOfDeleteQuery = queryFromDB(rClient);
-            fillDelLists(responseOfDeleteQuery);
-            responseOfEditQuery = queryFromDB(rClient);
-            fillEditLists(responseOfEditQuery);
+            fillAllCombo();
         }
 
         private void queryAllAssets_Click(object sender, EventArgs e)
@@ -68,13 +65,22 @@ namespace karbantartasAdmin
             strResponse = rClient.takeRequest(userLogedIn);
             System.Diagnostics.Debug.WriteLine(strResponse);
             assetDeleteFromDb.RemoveAll();
-            deleteAssetComboBox.Items.Clear();
-            
-            rClient = getClient("https://localhost:44336/api/assets");
-            responseOfDeleteQuery = queryFromDB(rClient);
-            fillDelLists(responseOfDeleteQuery);
+            fillAllCombo();
         }
-
+        private void addAssetButton_Click(object sender, EventArgs e)
+        {
+            assetToDb.Add("name", assetNameTxtBox.Text);
+            assetToDb.Add("location", assetLocationTxtBox.Text);
+            assetToDb.Add("assetsMainCategory", 1);         //Egyenlőre beégetés, mert az adatbázis változni fog!
+            assetToDb.Add("assetsSubCategory", 1);          //Egyenlőre beégetés, mert az adatbázis változni fog!
+            RestClient rClient = postClient("https://localhost:44336/api/assets/");
+            string strResponse = string.Empty;
+            strResponse = rClient.takeRequest(assetToDb, userLogedIn);
+            System.Diagnostics.Debug.WriteLine(assetToDb);
+            assetNameTxtBox.Clear();
+            assetLocationTxtBox.Clear();
+            fillAllCombo();
+        }
         //-------------------------------------------------------------------------------------------------------------------------
         private void fillQueryListBox(List<JObject> list)
         {
@@ -98,9 +104,19 @@ namespace karbantartasAdmin
             {
                 string listElement = jObject1.GetValue("name").ToString();
                 assetForEditComboBox.Items.Add(listElement);
+
             }
         }
-
+        private void fillAllCombo()
+        {
+            assetForEditComboBox.Items.Clear();
+            deleteAssetComboBox.Items.Clear();
+            RestClient rClient = getClient("https://localhost:44336/api/assets");
+            responseOfDeleteQuery = queryFromDB(rClient);
+            fillDelLists(responseOfDeleteQuery);
+            responseOfEditQuery = queryFromDB(rClient);
+            fillEditLists(responseOfEditQuery);
+        }
         private RestClient getClient(string url)
         {
             RestClient rClient = new RestClient();
@@ -146,6 +162,9 @@ namespace karbantartasAdmin
             return queryList;
         }
 
-        
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

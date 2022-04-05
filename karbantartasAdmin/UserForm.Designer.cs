@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserForm));
             this.userIdTxtBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.queryUserButton = new System.Windows.Forms.Button();
@@ -122,7 +121,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.groupBox1.BackColor = System.Drawing.Color.Silver;
             this.groupBox1.Controls.Add(this.queryListBox);
             this.groupBox1.Controls.Add(this.queryAllUser);
             this.groupBox1.Controls.Add(this.label2);
@@ -130,7 +129,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.userIdTxtBox);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox1.Location = new System.Drawing.Point(14, 75);
+            this.groupBox1.Location = new System.Drawing.Point(14, 83);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(808, 152);
             this.groupBox1.TabIndex = 6;
@@ -172,7 +171,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.groupBox2.BackColor = System.Drawing.Color.Silver;
             this.groupBox2.Controls.Add(this.addUserButton);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.occComboBox);
@@ -380,7 +379,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.groupBox3.BackColor = System.Drawing.Color.Silver;
             this.groupBox3.Controls.Add(this.editUserDataButton);
             this.groupBox3.Controls.Add(this.editUserOccComboBox);
             this.groupBox3.Controls.Add(this.editUserRoleComboBox);
@@ -403,11 +402,11 @@
             // backButton
             // 
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.backButton.Location = new System.Drawing.Point(14, 12);
+            this.backButton.Location = new System.Drawing.Point(14, 20);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(106, 32);
+            this.backButton.Size = new System.Drawing.Size(113, 41);
             this.backButton.TabIndex = 21;
-            this.backButton.Text = "Vissza";
+            this.backButton.Text = "Bezárás";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
@@ -415,16 +414,16 @@
             // 
             this.deleteUserComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.deleteUserComboBox.FormattingEnabled = true;
-            this.deleteUserComboBox.Location = new System.Drawing.Point(27, 22);
+            this.deleteUserComboBox.Location = new System.Drawing.Point(25, 22);
             this.deleteUserComboBox.Name = "deleteUserComboBox";
-            this.deleteUserComboBox.Size = new System.Drawing.Size(160, 24);
+            this.deleteUserComboBox.Size = new System.Drawing.Size(250, 24);
             this.deleteUserComboBox.TabIndex = 20;
             this.deleteUserComboBox.SelectedIndexChanged += new System.EventHandler(this.deleteUserComboBox_SelectedIndexChanged);
             // 
             // deleteUserButton
             // 
             this.deleteUserButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.deleteUserButton.Location = new System.Drawing.Point(217, 16);
+            this.deleteUserButton.Location = new System.Drawing.Point(363, 16);
             this.deleteUserButton.Name = "deleteUserButton";
             this.deleteUserButton.Size = new System.Drawing.Size(160, 32);
             this.deleteUserButton.TabIndex = 20;
@@ -434,13 +433,13 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.groupBox4.BackColor = System.Drawing.Color.Silver;
             this.groupBox4.Controls.Add(this.deleteUserButton);
             this.groupBox4.Controls.Add(this.deleteUserComboBox);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.groupBox4.Location = new System.Drawing.Point(427, 7);
+            this.groupBox4.Location = new System.Drawing.Point(281, 7);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(394, 62);
+            this.groupBox4.Size = new System.Drawing.Size(540, 62);
             this.groupBox4.TabIndex = 22;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Felhasználó törlése";
@@ -449,7 +448,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackColor = System.Drawing.Color.DarkSlateGray;
             this.ClientSize = new System.Drawing.Size(834, 461);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.backButton);
