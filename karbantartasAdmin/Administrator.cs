@@ -22,7 +22,8 @@ namespace karbantartasAdmin
 
         private void addMainCategory_Click(object sender, EventArgs e)
         {
-
+            MainCategory newScreen = new MainCategory(userLogedIn);
+            newScreen.Show();
         }
         private void addEquipment_Click(object sender, EventArgs e)
         {

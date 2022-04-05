@@ -166,5 +166,10 @@ namespace karbantartasAdmin
         {
             this.Close();
         }
+
+        private void editAssetsDataButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

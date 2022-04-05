@@ -45,7 +45,7 @@
             this.assetNameTxtBox = new System.Windows.Forms.TextBox();
             this.assetLocationTxtBox = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.editUserDataButton = new System.Windows.Forms.Button();
+            this.editAssetsDataButton = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.assetEditLocationTxtBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -237,7 +237,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.LightSlateGray;
-            this.groupBox3.Controls.Add(this.editUserDataButton);
+            this.groupBox3.Controls.Add(this.editAssetsDataButton);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.assetEditLocationTxtBox);
             this.groupBox3.Controls.Add(this.label9);
@@ -252,16 +252,17 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Adatmódosítás";
             // 
-            // editUserDataButton
+            // editAssetsDataButton
             // 
-            this.editUserDataButton.BackColor = System.Drawing.SystemColors.Control;
-            this.editUserDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.editUserDataButton.Location = new System.Drawing.Point(217, 83);
-            this.editUserDataButton.Name = "editUserDataButton";
-            this.editUserDataButton.Size = new System.Drawing.Size(160, 46);
-            this.editUserDataButton.TabIndex = 19;
-            this.editUserDataButton.Text = "Adatmódosítás";
-            this.editUserDataButton.UseVisualStyleBackColor = false;
+            this.editAssetsDataButton.BackColor = System.Drawing.SystemColors.Control;
+            this.editAssetsDataButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.editAssetsDataButton.Location = new System.Drawing.Point(217, 83);
+            this.editAssetsDataButton.Name = "editAssetsDataButton";
+            this.editAssetsDataButton.Size = new System.Drawing.Size(160, 46);
+            this.editAssetsDataButton.TabIndex = 19;
+            this.editAssetsDataButton.Text = "Adatmódosítás";
+            this.editAssetsDataButton.UseVisualStyleBackColor = false;
+            this.editAssetsDataButton.Click += new System.EventHandler(this.editAssetsDataButton_Click);
             // 
             // label10
             // 
@@ -376,7 +377,7 @@
         private System.Windows.Forms.TextBox assetNameTxtBox;
         private System.Windows.Forms.TextBox assetLocationTxtBox;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button editUserDataButton;
+        private System.Windows.Forms.Button editAssetsDataButton;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox assetEditLocationTxtBox;
         private System.Windows.Forms.Label label9;

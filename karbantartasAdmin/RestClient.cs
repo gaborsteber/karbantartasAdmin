@@ -125,8 +125,8 @@ namespace karbantartasAdmin
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(endPoint);
 
             request.Method = httpMethod.ToString();
-            //request.Headers.Add("userId", data.GetValue("id").ToString());
-            //request.Headers.Add("token", data.GetValue("token").ToString());
+            request.Headers.Add("userId", data.GetValue("id").ToString());
+            request.Headers.Add("token", data.GetValue("token").ToString());
 
             if (request.Method == "PUT" || request.Method == "POST" || request.Method == "DELETE")
             {

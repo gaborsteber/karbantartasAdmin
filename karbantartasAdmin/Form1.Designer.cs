@@ -77,7 +77,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.SlateGray;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
             this.label2.Font = new System.Drawing.Font("Segoe MDL2 Assets", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(39, 112);
             this.label2.Name = "label2";
@@ -109,7 +109,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.SlateGray;
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Controls.Add(this.unauthLbl);
             this.groupBox1.Controls.Add(this.loginButton);
             this.groupBox1.Controls.Add(this.label2);
@@ -128,7 +128,7 @@
             // 
             this.unauthLbl.AutoSize = true;
             this.unauthLbl.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.unauthLbl.Location = new System.Drawing.Point(119, 160);
+            this.unauthLbl.Location = new System.Drawing.Point(119, 166);
             this.unauthLbl.Name = "unauthLbl";
             this.unauthLbl.Size = new System.Drawing.Size(148, 19);
             this.unauthLbl.TabIndex = 15;
@@ -148,7 +148,7 @@
             // 
             // loginAsGroup
             // 
-            this.loginAsGroup.BackColor = System.Drawing.Color.SlateGray;
+            this.loginAsGroup.BackColor = System.Drawing.SystemColors.Control;
             this.loginAsGroup.Controls.Add(this.button1);
             this.loginAsGroup.Controls.Add(this.userNameLbl);
             this.loginAsGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));

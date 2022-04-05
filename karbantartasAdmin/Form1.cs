@@ -115,6 +115,9 @@ namespace karbantartasAdmin
             {
                 JObject userLogOut = new JObject(userLogedIn);
                 userLogOut.Remove("token");
+                userLogOut.Add("token","");
+                System.Console.WriteLine(userLogOut);
+                System.Console.WriteLine(userLogedIn);
                 RestClient rClient = new RestClient();
                 rClient.httpMethod = httpVerb.PUT;
                 rClient.endPoint = "https://localhost:44336/api/users/" + (Int16)userLogedIn.GetValue("id");
