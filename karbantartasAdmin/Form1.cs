@@ -126,5 +126,12 @@ namespace karbantartasAdmin
             }
         }
 
+        private void loginButton_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar.Equals(Convert.ToChar(13)))
+            {
+                loginButton_Click(sender, e);
+            }
+        }
     }
 }

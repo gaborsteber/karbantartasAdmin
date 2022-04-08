@@ -25,6 +25,7 @@ namespace karbantartasAdmin
 
         }
 
+        // ezt ki lehet tölteni, az assets alapjan fog mukodni
         private void editUserDataButton_Click(object sender, EventArgs e)
         {
 

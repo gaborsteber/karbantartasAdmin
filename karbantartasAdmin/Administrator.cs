@@ -23,7 +23,7 @@ namespace karbantartasAdmin
         private void addMainCategory_Click(object sender, EventArgs e)
         {
             MainCategory newScreen = new MainCategory(userLogedIn);
-            newScreen.Show();
+            newScreen.ShowDialog();
         }
         private void addEquipment_Click(object sender, EventArgs e)
         {
@@ -45,6 +45,21 @@ namespace karbantartasAdmin
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Administrator_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.mainTime = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.mainCatOccForEditComboBox = new System.Windows.Forms.ComboBox();
             this.editUserDataButton = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.assetEditNameTxtBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.mainCatForEditComboBox = new System.Windows.Forms.ComboBox();
-            this.mainCatOccForEditComboBox = new System.Windows.Forms.ComboBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.mainTime = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -62,6 +62,32 @@
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Adatmódosítás";
+            // 
+            // mainTime
+            // 
+            this.mainTime.AutoSize = true;
+            this.mainTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.mainTime.Location = new System.Drawing.Point(24, 133);
+            this.mainTime.Name = "mainTime";
+            this.mainTime.Size = new System.Drawing.Size(70, 15);
+            this.mainTime.TabIndex = 22;
+            this.mainTime.Text = "Normaidő";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(27, 151);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(160, 22);
+            this.numericUpDown1.TabIndex = 21;
+            // 
+            // mainCatOccForEditComboBox
+            // 
+            this.mainCatOccForEditComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.mainCatOccForEditComboBox.FormattingEnabled = true;
+            this.mainCatOccForEditComboBox.Location = new System.Drawing.Point(217, 53);
+            this.mainCatOccForEditComboBox.Name = "mainCatOccForEditComboBox";
+            this.mainCatOccForEditComboBox.Size = new System.Drawing.Size(160, 24);
+            this.mainCatOccForEditComboBox.TabIndex = 20;
             // 
             // editUserDataButton
             // 
@@ -122,36 +148,10 @@
             this.mainCatForEditComboBox.Size = new System.Drawing.Size(160, 24);
             this.mainCatForEditComboBox.TabIndex = 12;
             // 
-            // mainCatOccForEditComboBox
-            // 
-            this.mainCatOccForEditComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mainCatOccForEditComboBox.FormattingEnabled = true;
-            this.mainCatOccForEditComboBox.Location = new System.Drawing.Point(217, 53);
-            this.mainCatOccForEditComboBox.Name = "mainCatOccForEditComboBox";
-            this.mainCatOccForEditComboBox.Size = new System.Drawing.Size(160, 24);
-            this.mainCatOccForEditComboBox.TabIndex = 20;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(27, 151);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(160, 22);
-            this.numericUpDown1.TabIndex = 21;
-            // 
-            // mainTime
-            // 
-            this.mainTime.AutoSize = true;
-            this.mainTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mainTime.Location = new System.Drawing.Point(24, 133);
-            this.mainTime.Name = "mainTime";
-            this.mainTime.Size = new System.Drawing.Size(70, 15);
-            this.mainTime.TabIndex = 22;
-            this.mainTime.Text = "Normaidő";
-            // 
             // backButton
             // 
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.backButton.Location = new System.Drawing.Point(12, 12);
+            this.backButton.Location = new System.Drawing.Point(655, 386);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(113, 41);
             this.backButton.TabIndex = 23;

@@ -95,6 +95,7 @@
             this.loginButton.Text = "Bejelentkezés";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
+            this.loginButton.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.loginButton_KeyPress);
             // 
             // button1
             // 
