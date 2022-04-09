@@ -59,11 +59,23 @@ namespace karbantartasAdmin
             RestClient rClient = new RestClient();
             rClient.httpMethod = httpVerb.GET;
             rClient.endPoint = "https://localhost:44336/api/users?luname="+ user.Username + "&lpass=" + user.Password;          
-            Newtonsoft.Json.Linq.JObject jSONResponse = null;
-            string strResponse = string.Empty;
-                strResponse = rClient.makeRequest();
-            
-            jSONResponse = JObject.Parse(strResponse);
+            JObject jSONResponse = null;  //Newtonsoft.Json.Linq. kiemelve, az importban benne van, felesleges LB
+            //string strResponse = string.Empty; // felesleges LB
+
+            string strResponse = rClient.makeRequest();
+
+            if (strResponse != "{}")
+            {
+                UserLoginAdministrator.LoginOK = true;
+                UserLoginAdministrator.usersRole = 1;
+            }
+            else
+            {
+                UserLoginAdministrator.LoginOK = false;
+                UserLoginAdministrator.usersRole = 0;
+            }
+                        
+            jSONResponse = JObject.Parse(strResponse);      //ezek kerulhetnenek a static classba
                 userLogedIn.Add("id", jSONResponse.GetValue("id"));
                 userLogedIn.Add("fullName", jSONResponse.GetValue("fullName"));
                 userLogedIn.Add("roleId", jSONResponse.GetValue("roleId"));
@@ -71,6 +83,15 @@ namespace karbantartasAdmin
                 userLogedIn.Add("occupationId", jSONResponse.GetValue("occupationId"));
             
             debugOutput(strResponse);
+
+            if (UserLoginAdministrator.LoginOK) //ez a jovoben mindenhonnan elrheto lenne, nem kellene minden kodot ujbol megismetelni a belepeskor
+            {
+                Console.WriteLine("Rendben bejelentkezett\n");
+            }
+            else
+            {
+                Console.WriteLine("Nem tudott bejelentkezni!\n");
+            }
             
             if (strResponse != "{}")
             {
@@ -78,7 +99,7 @@ namespace karbantartasAdmin
                 userNameLbl.Text = userLogedIn.GetValue("fullName").ToString();
                 loginAsGroup.Visible = true;
                 userNameLbl.Visible = true;
-                newScreen.Show();
+                newScreen.ShowDialog(); //ezzel nem zarja a regi ablakot, igy a hatterben megmarad
                 usernameTxtBox.Clear();
                 passTxtBox.Clear();
                 unauthLbl.Visible = false;

@@ -26,6 +26,8 @@ namespace karbantartasAdmin
             endPoint = string.Empty;
             httpMethod = httpVerb.GET;
         }
+
+        #region //Region: method loginRequest
         public string loginRequest(JObject data)
         {
             string strResponseValue = string.Empty;
@@ -70,7 +72,9 @@ namespace karbantartasAdmin
             }
             return strResponseValue;
         }
+        #endregion
 
+        #region //Region: makeRequest
         public string makeRequest(JObject data)
         {
             string strResponseValue = string.Empty;
@@ -116,8 +120,55 @@ namespace karbantartasAdmin
             }
             return strResponseValue;
         }
+        #endregion
+
+        #region //Region: makeRequest overloaded function
+        public string makeRequest()
+        {
+            string strResponseValue = string.Empty;
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(endPoint);
+
+            request.Method = httpMethod.ToString();
 
 
+            HttpWebResponse response = null;
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new ApplicationException("error code: " + response.StatusCode.ToString());
+                }
+                //Process the response stream...(could be JSON, XML or HTML)
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    if (responseStream != null)
+                    {
+                        using (StreamReader reader = new StreamReader(responseStream))
+                        {
+                            strResponseValue = reader.ReadToEnd();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                strResponseValue = "{\"errorMessages\":[\"" + ex.Message.ToString() + "\"],\"errors\":{}}";
+            }
+            finally
+            {
+                if (response != null)
+                {
+                    ((IDisposable)response).Dispose();
+                }
+            }
+            return strResponseValue;
+        }
+        #endregion
+
+        #region //Region: takeRequest
         public string takeRequest(JObject data)
         {
             string strResponseValue = string.Empty;
@@ -172,8 +223,10 @@ namespace karbantartasAdmin
             }
             return strResponseValue;
         }
+        #endregion
 
-            public string takeRequest(JObject data, JObject user)
+        #region //Region: takeRequest overloaded function
+        public string takeRequest(JObject data, JObject user)
             {
                 string strResponseValue = string.Empty;
 
@@ -227,8 +280,10 @@ namespace karbantartasAdmin
                 }
                 return strResponseValue;
             }
+        #endregion
 
-            public string logOutRequest(JObject data)
+        #region //Region: logOutRequest
+        public string logOutRequest(JObject data)
             {
             string strResponseValue = string.Empty;
 
@@ -283,50 +338,9 @@ namespace karbantartasAdmin
             }
             return strResponseValue;
         }
+        #endregion
 
-        public string makeRequest()
-       {
-           string strResponseValue = string.Empty;
-
-           HttpWebRequest request = (HttpWebRequest)WebRequest.Create(endPoint);
-
-           request.Method = httpMethod.ToString();
-
-
-           HttpWebResponse response = null;
-
-           try
-           {
-               response = (HttpWebResponse)request.GetResponse();
-               if (response.StatusCode != HttpStatusCode.OK)
-               {
-                   throw new ApplicationException("error code: " + response.StatusCode.ToString());
-               }
-               //Process the response stream...(could be JSON, XML or HTML)
-               using (Stream responseStream = response.GetResponseStream())
-               {
-                   if (responseStream != null)
-                   {
-                       using (StreamReader reader = new StreamReader(responseStream))
-                       {
-                           strResponseValue = reader.ReadToEnd();
-                       }
-                   }
-               }
-           }
-           catch (Exception ex) 
-           {
-               strResponseValue = "{\"errorMessages\":[\"" + ex.Message.ToString() + "\"],\"errors\":{}}";
-           }
-           finally
-           {
-               if (response != null)
-               {
-                   ((IDisposable)response).Dispose();
-               }
-           }
-           return strResponseValue;
-       }
+        
 
     }
 }

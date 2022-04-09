@@ -34,7 +34,6 @@ namespace karbantartasAdmin
             fillOccLists(responseOfOccQuery);
             responseOfDeleteQuery = queryFromDB(rClient);
             fillDelOccLists(responseOfDeleteQuery);
-
         }
 
         private void getAllData_Click(object sender, EventArgs e)
@@ -121,6 +120,7 @@ namespace karbantartasAdmin
             rClient.endPoint = "https://localhost:44336/api/occupations";
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(occToDb, userLogedIn);
+            
             newOccTxtBox.Clear();
             newOccDescTxtBox.Clear();
             

@@ -1,0 +1,13 @@
+﻿2022-04-09 (LB)
+
+-	a restClient.cs fileban a kod attekinthetosege miatt bekerult a #region - #regionend fordito direktiva, amivel a megfelelo reszekre 
+a forraskod es igy konnyebben olvashato akkor, ha valaki mas munkajat olvassa
+
+-	egy statikus osztaly letrehozasa a bejelenkezett felhasznalo adatainak a tarolasara, hogy ne kelljen minden esetben ujra bekerni az
+adatokat. A UserLoginAdministrator tarolhatja a bejelentkezes statusat (true/false), vagy akar a felhasznalo minden adatat is,
+de a legjobb az, hogy ekkor is csak mindent egyszer kell lekerni, nem minden alkalommal mindent ujra, mert az redundans adattarolas
+
+valoszinuleg a bejelentkezesi kodnak es a kijelentkezesi kodnak kell allitania a statikus osztalyt es ezzel keszen is van, elvegezte a feladatat. 
+
+
+

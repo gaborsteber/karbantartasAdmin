@@ -64,7 +64,8 @@ namespace karbantartasAdmin
 
         private void végzettségFelvételeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //todo
+            Form2 addOccupationWindow = new Form2();
+            addOccupationWindow.ShowDialog();
         }
     }
 }
