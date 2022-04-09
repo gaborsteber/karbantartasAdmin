@@ -61,5 +61,10 @@ namespace karbantartasAdmin
         {
             System.Environment.Exit(0);
         }
+
+        private void végzettségFelvételeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //todo
+        }
     }
 }

@@ -73,6 +73,7 @@
             this.passTxtBox.PasswordChar = '*';
             this.passTxtBox.Size = new System.Drawing.Size(300, 22);
             this.passTxtBox.TabIndex = 2;
+            this.passTxtBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.passTxtBox_KeyPress);
             // 
             // label2
             // 
@@ -95,7 +96,6 @@
             this.loginButton.Text = "Bejelentkezés";
             this.loginButton.UseVisualStyleBackColor = true;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
-            this.loginButton.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.loginButton_KeyPress);
             // 
             // button1
             // 
