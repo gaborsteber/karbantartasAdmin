@@ -27,6 +27,12 @@ namespace karbantartasAdmin
             httpMethod = httpVerb.GET;
         }
 
+        public RestClient(string _endPoint, httpVerb _verb)
+        {
+            this.endPoint = _endPoint;
+            this.httpMethod = _verb;
+        }
+
         #region //Region: method loginRequest
         public string loginRequest(JObject data)
         {

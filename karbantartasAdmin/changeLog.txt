@@ -9,5 +9,5 @@ de a legjobb az, hogy ekkor is csak mindent egyszer kell lekerni, nem minden alk
 
 valoszinuleg a bejelentkezesi kodnak es a kijelentkezesi kodnak kell allitania a statikus osztalyt es ezzel keszen is van, elvegezte a feladatat. 
 
-
+-	a Form1.cs-ben atirtam a belepest, keszitettem egy overloaded constructort a RestClient osztalyba, igy most constructor parameterekkel megy az osztaly letrehozasa
 

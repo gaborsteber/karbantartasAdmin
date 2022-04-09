@@ -56,9 +56,15 @@ namespace karbantartasAdmin
             user.Password = passTxtBox.Text;
             userLogedIn.Add("username", usernameTxtBox.Text);
             userLogedIn.Add("password", passTxtBox.Text);
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.GET;
-            rClient.endPoint = "https://localhost:44336/api/users?luname="+ user.Username + "&lpass=" + user.Password;          
+            
+            string linkString = $"https://localhost:44336/api/users?luname={user.Username}&lpass={user.Password}"; // igy egyszerubb a string
+            //keszitese, nem kell a +-jel meg a tobbi idozojel, eszkepeles stb... ha a string tobb soros, akkor mehet a
+            // $@" ... " megoldassal akarhany sorba es a vegen a ; kell meg. A parameterek mindig a {} koze keruljenek.
+            
+            RestClient rClient = new RestClient(linkString, httpVerb.GET);
+           
+            //rClient.httpMethod = httpVerb.GET;
+            //rClient.endPoint = "https://localhost:44336/api/users?luname="+ user.Username + "&lpass=" + user.Password;          
             JObject jSONResponse = null;  //Newtonsoft.Json.Linq. kiemelve, az importban benne van, felesleges LB
             //string strResponse = string.Empty; // felesleges LB
 
