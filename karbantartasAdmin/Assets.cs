@@ -14,7 +14,7 @@ namespace karbantartasAdmin
     public partial class Assets : Form
     {
         DataTransferClass t = new DataTransferClass();
-        JObject userLogedIn = new JObject();
+        JObject userLogedIn = new JObject(); //todo:static classra kell atalakitani
         List<JObject> responseOfQuery = new List<JObject>();
         JObject assetDeleteFromDb = new JObject();
         List<JObject> responseOfDeleteQuery = new List<JObject>();
@@ -34,7 +34,7 @@ namespace karbantartasAdmin
             queryListBox.Items.Clear();
 
             RestClient rClient = t.getClient("https://localhost:44336/api/assets");
-            responseOfQuery = queryFromDB(rClient);
+            responseOfQuery = t.queryFromDB(rClient);
             fillQueryListBox(responseOfQuery);
         }
         
@@ -77,9 +77,12 @@ namespace karbantartasAdmin
             RestClient rClient = t.postClient("https://localhost:44336/api/assets/");
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(assetToDb, userLogedIn);
+
             System.Diagnostics.Debug.WriteLine(assetToDb);
+
             assetNameTxtBox.Clear();
             assetLocationTxtBox.Clear();
+            
             fillAllCombo();
         }
         //-------------------------------------------------------------------------------------------------------------------------
@@ -113,9 +116,9 @@ namespace karbantartasAdmin
             assetForEditComboBox.Items.Clear();
             deleteAssetComboBox.Items.Clear();
             RestClient rClient = t.getClient("https://localhost:44336/api/assets");
-            responseOfDeleteQuery = queryFromDB(rClient);
+            responseOfDeleteQuery = t.queryFromDB(rClient);
             fillDelLists(responseOfDeleteQuery);
-            responseOfEditQuery = queryFromDB(rClient);
+            responseOfEditQuery = t.queryFromDB(rClient);
             fillEditLists(responseOfEditQuery);
         }
 //         #region //REGION: REST keresek (get, post, put, delete)
@@ -148,21 +151,21 @@ namespace karbantartasAdmin
 //             return rClient;
 //         }
 // #endregion
-        private List<JObject> queryFromDB(RestClient kliens)
-        {
-            List<JObject> queryList = new List<JObject>();
-            JArray jArray = new JArray();
-            jArray.RemoveAll();
-            string strResponse = string.Empty;
-            strResponse = kliens.makeRequest(userLogedIn);
-            jArray = JArray.Parse(strResponse);
-            foreach (JObject jObject in jArray)
-            {
-                System.Diagnostics.Debug.WriteLine(jObject.ToString());
-                queryList.Add(jObject);
-            }
-            return queryList;
-        }
+        // private List<JObject> queryFromDB(RestClient kliens)
+        // {
+        //     List<JObject> queryList = new List<JObject>();
+        //     JArray jArray = new JArray();
+        //     jArray.RemoveAll();
+        //     string strResponse = string.Empty;
+        //     strResponse = kliens.makeRequest(userLogedIn);
+        //     jArray = JArray.Parse(strResponse);
+        //     foreach (JObject jObject in jArray)
+        //     {
+        //         System.Diagnostics.Debug.WriteLine(jObject.ToString());
+        //         queryList.Add(jObject);
+        //     }
+        //     return queryList;
+        // }
 
         private void backButton_Click(object sender, EventArgs e)
         {
