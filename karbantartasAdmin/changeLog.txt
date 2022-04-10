@@ -17,3 +17,5 @@ valoszinuleg a bejelentkezesi kodnak es a kijelentkezesi kodnak kell allitania a
 
 -   A DataTransfer classba bekerült a get, post, delete, put kérésekre irt függvény, majd erre hivatkozva az Assets.cs-ben átalakítottam a kereseket, amik most már objektum
 alapján hívott metódusokként működnek. (A maradék kódot kommenteltem az Assets.csüben, onnan törölni kell majd.) Csökkent a kód redundanciája.
+
+-   A DataTransfer classba került a queryFromDB() függvény is, ami most már onnan fut
