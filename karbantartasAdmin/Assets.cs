@@ -13,6 +13,7 @@ namespace karbantartasAdmin
 {
     public partial class Assets : Form
     {
+        DataTransferClass t = new DataTransferClass();
         JObject userLogedIn = new JObject();
         List<JObject> responseOfQuery = new List<JObject>();
         JObject assetDeleteFromDb = new JObject();
@@ -32,7 +33,7 @@ namespace karbantartasAdmin
             responseOfQuery.Clear();
             queryListBox.Items.Clear();
 
-            RestClient rClient = getClient("https://localhost:44336/api/assets");
+            RestClient rClient = t.getClient("https://localhost:44336/api/assets");
             responseOfQuery = queryFromDB(rClient);
             fillQueryListBox(responseOfQuery);
         }
@@ -43,7 +44,7 @@ namespace karbantartasAdmin
             queryListBox.Items.Clear();
             if (assetsIdTxtBox.Text != "")
             {
-                RestClient rClient = getClient("https://localhost:44336/api/assets/" + Int32.Parse(assetsIdTxtBox.Text));
+                RestClient rClient = t.getClient("https://localhost:44336/api/assets/" + Int32.Parse(assetsIdTxtBox.Text));
                 string strResponse = string.Empty;
                 strResponse = rClient.makeRequest(userLogedIn);
                 JObject jObject1 = JObject.Parse(strResponse);
@@ -60,7 +61,7 @@ namespace karbantartasAdmin
         
         private void deleteAssetButton_Click(object sender, EventArgs e)
         {
-            RestClient rClient = deleteClient("https://localhost:44336/api/assets/" + Int32.Parse(assetDeleteFromDb.GetValue("id").ToString()));
+            RestClient rClient = t.deleteClient("https://localhost:44336/api/assets/" + Int32.Parse(assetDeleteFromDb.GetValue("id").ToString()));
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(userLogedIn);
             System.Diagnostics.Debug.WriteLine(strResponse);
@@ -73,7 +74,7 @@ namespace karbantartasAdmin
             assetToDb.Add("location", assetLocationTxtBox.Text);
             assetToDb.Add("assetsMainCategory", 1);         //Egyenlőre beégetés, mert az adatbázis változni fog!
             assetToDb.Add("assetsSubCategory", 1);          //Egyenlőre beégetés, mert az adatbázis változni fog!
-            RestClient rClient = postClient("https://localhost:44336/api/assets/");
+            RestClient rClient = t.postClient("https://localhost:44336/api/assets/");
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(assetToDb, userLogedIn);
             System.Diagnostics.Debug.WriteLine(assetToDb);
@@ -111,41 +112,42 @@ namespace karbantartasAdmin
         {
             assetForEditComboBox.Items.Clear();
             deleteAssetComboBox.Items.Clear();
-            RestClient rClient = getClient("https://localhost:44336/api/assets");
+            RestClient rClient = t.getClient("https://localhost:44336/api/assets");
             responseOfDeleteQuery = queryFromDB(rClient);
             fillDelLists(responseOfDeleteQuery);
             responseOfEditQuery = queryFromDB(rClient);
             fillEditLists(responseOfEditQuery);
         }
-        private RestClient getClient(string url)
-        {
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.GET;
-            rClient.endPoint = url;
-            return rClient;
-        }
-        private RestClient postClient(string url)
-        {
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.POST;
-            rClient.endPoint = url;
-            return rClient;
-        }
-        private RestClient putClient(string url)
-        {
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.PUT;
-            rClient.endPoint = url;
-            return rClient;
-        }
-        private RestClient deleteClient(string url)
-        {
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.DELETE;
-            rClient.endPoint = url;
-            return rClient;
-        }
-
+//         #region //REGION: REST keresek (get, post, put, delete)
+//         private RestClient getClient(string url)
+//         {
+//             RestClient rClient = new RestClient(url, httpVerb.GET);
+//             //rClient.httpMethod = httpVerb.GET;
+//             //rClient.endPoint = url;
+//             return rClient;
+//         }
+//         private RestClient postClient(string url)
+//         {
+//             RestClient rClient = new RestClient(url, httpVerb.POST);
+//             //rClient.httpMethod = httpVerb.POST;
+//             //rClient.endPoint = url;
+//             return rClient;
+//         }
+//         private RestClient putClient(string url)
+//         {
+//             RestClient rClient = new RestClient(url, httpVerb.PUT);
+//             //rClient.httpMethod = httpVerb.PUT;
+//             //rClient.endPoint = url;
+//             return rClient;
+//         }
+//         private RestClient deleteClient(string url)
+//         {
+//             RestClient rClient = new RestClient(url, httpVerb.DELETE);
+//             // rClient.httpMethod = httpVerb.DELETE;
+//             // rClient.endPoint = url;
+//             return rClient;
+//         }
+// #endregion
         private List<JObject> queryFromDB(RestClient kliens)
         {
             List<JObject> queryList = new List<JObject>();

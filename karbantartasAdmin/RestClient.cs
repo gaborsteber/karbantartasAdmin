@@ -21,12 +21,13 @@ namespace karbantartasAdmin
     {
         public string endPoint { get; set; }
         public httpVerb httpMethod { get; set; }       
+        //default constructor
         public RestClient()
         {
             endPoint = string.Empty;
             httpMethod = httpVerb.GET;
         }
-
+        //overloaded constructor
         public RestClient(string _endPoint, httpVerb _verb)
         {
             this.endPoint = _endPoint;
