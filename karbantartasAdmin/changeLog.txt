@@ -1,4 +1,5 @@
 ﻿2022-04-09 (LB)
+---------------
 
 -	a restClient.cs fileban a kod attekinthetosege miatt bekerult a #region - #regionend fordito direktiva, amivel a megfelelo reszekre 
 a forraskod es igy konnyebben olvashato akkor, ha valaki mas munkajat olvassa
@@ -11,3 +12,8 @@ valoszinuleg a bejelentkezesi kodnak es a kijelentkezesi kodnak kell allitania a
 
 -	a Form1.cs-ben atirtam a belepest, keszitettem egy overloaded constructort a RestClient osztalyba, igy most constructor parameterekkel megy az osztaly letrehozasa
 
+2022-04-10 (LB)
+---------------
+
+-   A DataTransfer classba bekerült a get, post, delete, put kérésekre irt függvény, majd erre hivatkozva az Assets.cs-ben átalakítottam a kereseket, amik most már objektum
+alapján hívott metódusokként működnek. (A maradék kódot kommenteltem az Assets.csüben, onnan törölni kell majd.) Csökkent a kód redundanciája.
