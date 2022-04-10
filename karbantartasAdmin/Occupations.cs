@@ -115,9 +115,9 @@ namespace karbantartasAdmin
         {
             occToDb.Add("occupationName", newOccTxtBox.Text);
             occToDb.Add("occupationDescrition", newOccDescTxtBox.Text);
-            RestClient rClient = new RestClient();
-            rClient.httpMethod = httpVerb.POST;
-            rClient.endPoint = "https://localhost:44336/api/occupations";
+            RestClient rClient = new RestClient("https://localhost:44336/api/occupations", httpVerb.POST);
+            //rClient.httpMethod = httpVerb.POST;
+            //rClient.endPoint = "https://localhost:44336/api/occupations";
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(occToDb, userLogedIn);
             
@@ -129,6 +129,7 @@ namespace karbantartasAdmin
 
             rClient.httpMethod = httpVerb.GET;
             rClient.endPoint = "https://localhost:44336/api/occupations";
+
             responseOfOccQuery = queryFromDB(rClient);
             fillOccLists(responseOfOccQuery);
             responseOfDeleteQuery = queryFromDB(rClient);

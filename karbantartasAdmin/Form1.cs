@@ -72,25 +72,32 @@ namespace karbantartasAdmin
 
             if (strResponse != "{}")
             {
-                UserLoginAdministrator.LoginOK = true;
-                UserLoginAdministrator.usersRole = 1;
+                UserLoginAdministrator._LoginOK = true;
+                //UserLoginAdministrator._roleId = 1; //nem kell, csak proba volt
             }
             else
             {
-                UserLoginAdministrator.LoginOK = false;
-                UserLoginAdministrator.usersRole = 0;
+                UserLoginAdministrator._LoginOK = false;
+                //UserLoginAdministrator._roleId = 0; //nem kell, csak proba volt
             }
                         
             jSONResponse = JObject.Parse(strResponse);      //ezek kerulhetnenek a static classba
                 userLogedIn.Add("id", jSONResponse.GetValue("id"));
+            UserLoginAdministrator._userId = (int)jSONResponse.GetValue("id");
                 userLogedIn.Add("fullName", jSONResponse.GetValue("fullName"));
+            UserLoginAdministrator._username = (string)jSONResponse.GetValue("username");
+            UserLoginAdministrator._fullName = (string)jSONResponse.GetValue("fullName");
                 userLogedIn.Add("roleId", jSONResponse.GetValue("roleId"));
+            UserLoginAdministrator._roleId = (int)jSONResponse.GetValue("roleId");
                 userLogedIn.Add("token", jSONResponse.GetValue("token"));
+            UserLoginAdministrator._token = (string)jSONResponse.GetValue("token");
                 userLogedIn.Add("occupationId", jSONResponse.GetValue("occupationId"));
+            UserLoginAdministrator._occupationId = (int)jSONResponse.GetValue("occupationId");
+
             
             debugOutput(strResponse);
 
-            if (UserLoginAdministrator.LoginOK) //ez a jovoben mindenhonnan elrheto lenne, nem kellene minden kodot ujbol megismetelni a belepeskor
+            if (UserLoginAdministrator._LoginOK) //ez a jovoben mindenhonnan elrheto lenne, nem kellene minden kodot ujbol megismetelni a belepeskor
             {
                 Console.WriteLine("Rendben bejelentkezett\n");
             }
