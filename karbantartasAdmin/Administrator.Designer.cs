@@ -66,6 +66,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.névjegyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -183,25 +184,25 @@
             this.eKListázásToolStripMenuItem,
             this.eKSzerkesztéseToolStripMenuItem});
             this.eszközkategóriákToolStripMenuItem.Name = "eszközkategóriákToolStripMenuItem";
-            this.eszközkategóriákToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.eszközkategóriákToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eszközkategóriákToolStripMenuItem.Text = "Eszköz-kategóriák";
             // 
             // eKFelvételeToolStripMenuItem
             // 
             this.eKFelvételeToolStripMenuItem.Name = "eKFelvételeToolStripMenuItem";
-            this.eKFelvételeToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.eKFelvételeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eKFelvételeToolStripMenuItem.Text = "EK felvétele";
             // 
             // eKListázásToolStripMenuItem
             // 
             this.eKListázásToolStripMenuItem.Name = "eKListázásToolStripMenuItem";
-            this.eKListázásToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.eKListázásToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eKListázásToolStripMenuItem.Text = "EK Listázás";
             // 
             // eKSzerkesztéseToolStripMenuItem
             // 
             this.eKSzerkesztéseToolStripMenuItem.Name = "eKSzerkesztéseToolStripMenuItem";
-            this.eKSzerkesztéseToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.eKSzerkesztéseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eKSzerkesztéseToolStripMenuItem.Text = "EK szerkesztése";
             // 
             // eszközökToolStripMenuItem1
@@ -210,19 +211,19 @@
             this.eszközökListájaToolStripMenuItem,
             this.újEszközFelvételeToolStripMenuItem});
             this.eszközökToolStripMenuItem1.Name = "eszközökToolStripMenuItem1";
-            this.eszközökToolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
+            this.eszközökToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.eszközökToolStripMenuItem1.Text = "Eszközök";
             // 
             // eszközökListájaToolStripMenuItem
             // 
             this.eszközökListájaToolStripMenuItem.Name = "eszközökListájaToolStripMenuItem";
-            this.eszközökListájaToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.eszközökListájaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eszközökListájaToolStripMenuItem.Text = "Eszközök listája";
             // 
             // újEszközFelvételeToolStripMenuItem
             // 
             this.újEszközFelvételeToolStripMenuItem.Name = "újEszközFelvételeToolStripMenuItem";
-            this.újEszközFelvételeToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.újEszközFelvételeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.újEszközFelvételeToolStripMenuItem.Text = "Új eszköz felvétele";
             // 
             // végzettségekToolStripMenuItem
@@ -387,12 +388,22 @@
             this.label1.Text = "ADMINISZTRÁCIÓS FELÜLET";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(366, 139);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "(Eszközfelelős)";
+            // 
             // Administrator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(834, 461);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.userButton);
@@ -452,5 +463,6 @@
         private System.Windows.Forms.ToolStripMenuItem névjegyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rögzítettIdőszakosFeladatokToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem egyediFeladatokListájaToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
     }
 }

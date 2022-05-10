@@ -12,12 +12,12 @@ using Newtonsoft.Json.Linq;
 
 namespace karbantartasAdmin
 {
-    public partial class Form2 : Form
+    public partial class FromAddRole : Form
     {
         JObject thisUser = new JObject();
         JObject occupationData = new JObject();
 
-        public Form2()
+        public FromAddRole()
         {
             InitializeComponent();
         }

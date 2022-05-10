@@ -1,7 +1,7 @@
 ﻿
 namespace karbantartasAdmin
 {
-    partial class Form2
+    partial class FromAddRole
     {
         /// <summary>
         /// Required designer variable.
