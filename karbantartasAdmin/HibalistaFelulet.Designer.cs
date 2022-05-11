@@ -52,6 +52,7 @@ namespace karbantartasAdmin
             this.BtnHibalista.TabIndex = 1;
             this.BtnHibalista.Text = "Hibák listázása";
             this.BtnHibalista.UseVisualStyleBackColor = true;
+            this.BtnHibalista.Click += new System.EventHandler(this.BtnHibalista_Click);
             // 
             // BtnBezar
             // 

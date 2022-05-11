@@ -54,7 +54,10 @@ namespace karbantartasAdmin
             List<JObject> queryList = new List<JObject>();
             JArray jArray = new JArray();
             jArray.RemoveAll();
+
             string strResponse = string.Empty;
+
+
             strResponse = kliens.makeRequest(userLogedIn);
             jArray = JArray.Parse(strResponse);
             foreach (JObject jObject in jArray)

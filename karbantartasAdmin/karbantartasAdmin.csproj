@@ -120,6 +120,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestClient.cs" />
+    <Compile Include="ServerDataStore.cs" />
     <Compile Include="UserForm.cs">
       <SubType>Form</SubType>
     </Compile>
