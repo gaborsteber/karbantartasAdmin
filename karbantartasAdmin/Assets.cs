@@ -13,7 +13,7 @@ namespace karbantartasAdmin
 {
     public partial class Assets : Form
     {
-        DataTransferClass t = new DataTransferClass();
+        //DataTransferClass t = new DataTransferClass();
         JObject userLogedIn = new JObject(); //todo:static classra kell atalakitani
         List<JObject> responseOfQuery = new List<JObject>();
         JObject assetDeleteFromDb = new JObject();
@@ -33,8 +33,8 @@ namespace karbantartasAdmin
             responseOfQuery.Clear();
             queryListBox.Items.Clear();
 
-            RestClient rClient = t.getClient("https://localhost:44336/api/assets");
-            responseOfQuery = t.queryFromDB(rClient);
+            RestClient rClient = getClient("https://localhost:44336/api/assets");
+            responseOfQuery = queryFromDB(rClient);
             fillQueryListBox(responseOfQuery);
         }
         
@@ -44,24 +44,24 @@ namespace karbantartasAdmin
             queryListBox.Items.Clear();
             if (assetsIdTxtBox.Text != "")
             {
-                RestClient rClient = t.getClient("https://localhost:44336/api/assets/" + Int32.Parse(assetsIdTxtBox.Text));
+                RestClient rClient = getClient("https://localhost:44336/api/assets/" + Int32.Parse(assetsIdTxtBox.Text));
                 string strResponse = string.Empty;
                 strResponse = rClient.makeRequest(userLogedIn);
                 JObject jObject1 = JObject.Parse(strResponse);
-                string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("name").ToString() + " - Helye: " + jObject1.GetValue("location").ToString();
+                string listElement = "Azonosító: " + jObject1.GetValue("AssetId").ToString() + " -  Neve: " + jObject1.GetValue("AssetName").ToString() + " - Helye: " + jObject1.GetValue("AssetLocation").ToString();
                 queryListBox.Items.Add(listElement);
             }
         }
         
         private void deleteAssetComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            assetDeleteFromDb.Remove("id");
-            assetDeleteFromDb.Add("id", responseOfDeleteQuery[deleteAssetComboBox.SelectedIndex].GetValue("id"));
+            assetDeleteFromDb.Remove("AssetId");
+            assetDeleteFromDb.Add("AssetId", responseOfDeleteQuery[deleteAssetComboBox.SelectedIndex].GetValue("AssetId"));
         }
         
         private void deleteAssetButton_Click(object sender, EventArgs e)
         {
-            RestClient rClient = t.deleteClient("https://localhost:44336/api/assets/" + Int32.Parse(assetDeleteFromDb.GetValue("id").ToString()));
+            RestClient rClient = deleteClient("https://localhost:44336/api/assets/" + Int32.Parse(assetDeleteFromDb.GetValue("AssetId").ToString()));
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(userLogedIn);
             System.Diagnostics.Debug.WriteLine(strResponse);
@@ -70,11 +70,11 @@ namespace karbantartasAdmin
         }
         private void addAssetButton_Click(object sender, EventArgs e)
         {
-            assetToDb.Add("name", assetNameTxtBox.Text);
-            assetToDb.Add("location", assetLocationTxtBox.Text);
-            assetToDb.Add("assetsMainCategory", 1);         //Egyenlőre beégetés, mert az adatbázis változni fog!
-            assetToDb.Add("assetsSubCategory", 1);          //Egyenlőre beégetés, mert az adatbázis változni fog!
-            RestClient rClient = t.postClient("https://localhost:44336/api/assets/");
+            assetToDb.Add("AssetName", assetNameTxtBox.Text);
+            assetToDb.Add("AssetLocation", assetLocationTxtBox.Text);
+            assetToDb.Add("AssetMainCategory", 1);         //Egyenlőre beégetés, mert az adatbázis változni fog!
+            assetToDb.Add("AssetSubCategory", 1);          //Egyenlőre beégetés, mert az adatbázis változni fog!
+            RestClient rClient = postClient("https://localhost:44336/api/assets/");
             string strResponse = string.Empty;
             strResponse = rClient.takeRequest(assetToDb, userLogedIn);
 
@@ -90,7 +90,7 @@ namespace karbantartasAdmin
         {
             foreach (JObject jObject1 in responseOfQuery)
             {
-                string listElement = "Azonosító: " + jObject1.GetValue("id").ToString() + " -  Neve: " + jObject1.GetValue("name").ToString() + " - Helye: " + jObject1.GetValue("location").ToString();
+                string listElement = "Azonosító: " + jObject1.GetValue("AssetId").ToString() + " -  Neve: " + jObject1.GetValue("AssetName").ToString() + " - Helye: " + jObject1.GetValue("AssetLocation").ToString();
                 queryListBox.Items.Add(listElement);
             }
         }
@@ -98,7 +98,7 @@ namespace karbantartasAdmin
         {
             foreach (JObject jObject1 in responseOfDeleteQuery)
             {
-                string listElement = jObject1.GetValue("name").ToString();
+                string listElement = jObject1.GetValue("AssetName").ToString();
                 deleteAssetComboBox.Items.Add(listElement);
             }
         }
@@ -106,7 +106,7 @@ namespace karbantartasAdmin
         {
             foreach (JObject jObject1 in responseOfEditQuery)
             {
-                string listElement = jObject1.GetValue("name").ToString();
+                string listElement = jObject1.GetValue("AssetName").ToString();
                 assetForEditComboBox.Items.Add(listElement);
 
             }
@@ -115,57 +115,57 @@ namespace karbantartasAdmin
         {
             assetForEditComboBox.Items.Clear();
             deleteAssetComboBox.Items.Clear();
-            RestClient rClient = t.getClient("https://localhost:44336/api/assets");
-            responseOfDeleteQuery = t.queryFromDB(rClient);
+            RestClient rClient = getClient("https://localhost:44336/api/assets");
+            responseOfDeleteQuery = queryFromDB(rClient);
             fillDelLists(responseOfDeleteQuery);
-            responseOfEditQuery = t.queryFromDB(rClient);
+            responseOfEditQuery = queryFromDB(rClient);
             fillEditLists(responseOfEditQuery);
         }
-//         #region //REGION: REST keresek (get, post, put, delete)
-//         private RestClient getClient(string url)
-//         {
-//             RestClient rClient = new RestClient(url, httpVerb.GET);
-//             //rClient.httpMethod = httpVerb.GET;
-//             //rClient.endPoint = url;
-//             return rClient;
-//         }
-//         private RestClient postClient(string url)
-//         {
-//             RestClient rClient = new RestClient(url, httpVerb.POST);
-//             //rClient.httpMethod = httpVerb.POST;
-//             //rClient.endPoint = url;
-//             return rClient;
-//         }
-//         private RestClient putClient(string url)
-//         {
-//             RestClient rClient = new RestClient(url, httpVerb.PUT);
-//             //rClient.httpMethod = httpVerb.PUT;
-//             //rClient.endPoint = url;
-//             return rClient;
-//         }
-//         private RestClient deleteClient(string url)
-//         {
-//             RestClient rClient = new RestClient(url, httpVerb.DELETE);
-//             // rClient.httpMethod = httpVerb.DELETE;
-//             // rClient.endPoint = url;
-//             return rClient;
-//         }
-// #endregion
-        // private List<JObject> queryFromDB(RestClient kliens)
-        // {
-        //     List<JObject> queryList = new List<JObject>();
-        //     JArray jArray = new JArray();
-        //     jArray.RemoveAll();
-        //     string strResponse = string.Empty;
-        //     strResponse = kliens.makeRequest(userLogedIn);
-        //     jArray = JArray.Parse(strResponse);
-        //     foreach (JObject jObject in jArray)
-        //     {
-        //         System.Diagnostics.Debug.WriteLine(jObject.ToString());
-        //         queryList.Add(jObject);
-        //     }
-        //     return queryList;
-        // }
+        #region //REGION: REST keresek (get, post, put, delete)
+        private RestClient getClient(string url)
+        {
+            RestClient rClient = new RestClient(url, httpVerb.GET);
+            //rClient.httpMethod = httpVerb.GET;
+            //rClient.endPoint = url;
+            return rClient;
+        }
+        private RestClient postClient(string url)
+        {
+            RestClient rClient = new RestClient(url, httpVerb.POST);
+            //rClient.httpMethod = httpVerb.POST;
+            //rClient.endPoint = url;
+            return rClient;
+        }
+        private RestClient putClient(string url)
+        {
+            RestClient rClient = new RestClient(url, httpVerb.PUT);
+            //rClient.httpMethod = httpVerb.PUT;
+            //rClient.endPoint = url;
+            return rClient;
+        }
+        private RestClient deleteClient(string url)
+        {
+            RestClient rClient = new RestClient(url, httpVerb.DELETE);
+            // rClient.httpMethod = httpVerb.DELETE;
+            // rClient.endPoint = url;
+            return rClient;
+        }
+        #endregion
+        private List<JObject> queryFromDB(RestClient kliens)
+        {
+            List<JObject> queryList = new List<JObject>();
+            JArray jArray = new JArray();
+            jArray.RemoveAll();
+            string strResponse = string.Empty;
+            strResponse = kliens.makeRequest(userLogedIn);
+            jArray = JArray.Parse(strResponse);
+            foreach (JObject jObject in jArray)
+            {
+                System.Diagnostics.Debug.WriteLine(jObject.ToString());
+                queryList.Add(jObject);
+            }
+            return queryList;
+        }
 
         private void backButton_Click(object sender, EventArgs e)
         {

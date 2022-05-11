@@ -21,7 +21,7 @@ namespace karbantartasAdmin
 {
     public static class ServerDataStore
     {
-        public static String url = "https://localhost:44392";
+        public static String url = "https://localhost:44336";
         public static bool authUser = true; 
         public static void SetUrl(String url)
         {

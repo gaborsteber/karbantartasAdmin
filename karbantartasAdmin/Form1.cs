@@ -20,7 +20,7 @@ namespace karbantartasAdmin
         {
             InitializeComponent();
         }
-        
+
         #region UI Event Handlers;
         private void GET_Click(object sender, EventArgs e)
         {
@@ -56,13 +56,13 @@ namespace karbantartasAdmin
             user.Password = passTxtBox.Text;
             userLogedIn.Add("username", usernameTxtBox.Text);
             userLogedIn.Add("password", passTxtBox.Text);
-            
+
             string linkString = $"https://localhost:44336/api/users?luname={user.Username}&lpass={user.Password}"; // igy egyszerubb a string
-            //keszitese, nem kell a +-jel meg a tobbi idozojel, eszkepeles stb... ha a string tobb soros, akkor mehet a
-            // $@" ... " megoldassal akarhany sorba es a vegen a ; kell meg. A parameterek mindig a {} koze keruljenek.
-            
+                                                                                                                   //keszitese, nem kell a +-jel meg a tobbi idozojel, eszkepeles stb... ha a string tobb soros, akkor mehet a
+                                                                                                                   // $@" ... " megoldassal akarhany sorba es a vegen a ; kell meg. A parameterek mindig a {} koze keruljenek.
+
             RestClient rClient = new RestClient(linkString, httpVerb.GET);
-           
+
             //rClient.httpMethod = httpVerb.GET;
             //rClient.endPoint = "https://localhost:44336/api/users?luname="+ user.Username + "&lpass=" + user.Password;          
             JObject jSONResponse = null;  //Newtonsoft.Json.Linq. kiemelve, az importban benne van, felesleges LB
@@ -80,21 +80,21 @@ namespace karbantartasAdmin
                 UserLoginAdministrator._LoginOK = false;
                 //UserLoginAdministrator._roleId = 0; //nem kell, csak proba volt
             }
-                        
+
             jSONResponse = JObject.Parse(strResponse);      //ezek kerulhetnenek a static classba
-                userLogedIn.Add("id", jSONResponse.GetValue("id"));
-            UserLoginAdministrator._userId = (int)jSONResponse.GetValue("id");
-                userLogedIn.Add("fullName", jSONResponse.GetValue("fullName"));
+            userLogedIn.Add("id", jSONResponse.GetValue("UsersId"));
+            UserLoginAdministrator._userId = (int)jSONResponse.GetValue("UserId");
+            userLogedIn.Add("fullName", jSONResponse.GetValue("fullName"));
             UserLoginAdministrator._username = (string)jSONResponse.GetValue("username");
             UserLoginAdministrator._fullName = (string)jSONResponse.GetValue("fullName");
-                userLogedIn.Add("roleId", jSONResponse.GetValue("roleId"));
+            userLogedIn.Add("roleId", jSONResponse.GetValue("roleId"));
             UserLoginAdministrator._roleId = (int)jSONResponse.GetValue("roleId");
-                userLogedIn.Add("token", jSONResponse.GetValue("token"));
+            userLogedIn.Add("token", jSONResponse.GetValue("token"));
             UserLoginAdministrator._token = (string)jSONResponse.GetValue("token");
-                userLogedIn.Add("occupationId", jSONResponse.GetValue("occupationId"));
+            userLogedIn.Add("occupationId", jSONResponse.GetValue("occupationId"));
             UserLoginAdministrator._occupationId = (int)jSONResponse.GetValue("occupationId");
 
-            
+
             debugOutput(strResponse);
 
             if (UserLoginAdministrator._LoginOK) //ez a jovoben mindenhonnan elrheto lenne, nem kellene minden kodot ujbol megismetelni a belepeskor
@@ -105,7 +105,7 @@ namespace karbantartasAdmin
             {
                 Console.WriteLine("Nem tudott bejelentkezni!\n");
             }
-            
+
             if (strResponse != "{}")
             {
                 Administrator newScreen = new Administrator(userLogedIn);
@@ -124,7 +124,7 @@ namespace karbantartasAdmin
                 unauthLbl.Visible = true;
                 usernameTxtBox.Clear();
                 passTxtBox.Clear();
-                
+
             }
         }
 
@@ -134,7 +134,7 @@ namespace karbantartasAdmin
             userLogOut.Remove("token");
             RestClient rClient = new RestClient();
             rClient.httpMethod = httpVerb.PUT;
-            rClient.endPoint = "https://localhost:44336/api/users/"+(Int16)userLogedIn.GetValue("id");
+            rClient.endPoint = "https://localhost:44336/api/users/" + (Int16)userLogedIn.GetValue("id");
             rClient.takeRequest(userLogOut, userLogedIn);
             userNameLbl.Visible = false;
             loginAsGroup.Visible = false;
@@ -149,7 +149,7 @@ namespace karbantartasAdmin
             {
                 JObject userLogOut = new JObject(userLogedIn);
                 userLogOut.Remove("token");
-                userLogOut.Add("token","");
+                userLogOut.Add("token", "");
                 System.Console.WriteLine(userLogOut);
                 System.Console.WriteLine(userLogedIn);
                 RestClient rClient = new RestClient();
@@ -160,7 +160,7 @@ namespace karbantartasAdmin
             }
         }
 
-             private void passTxtBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void passTxtBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar.Equals(Convert.ToChar(13)))
             {
