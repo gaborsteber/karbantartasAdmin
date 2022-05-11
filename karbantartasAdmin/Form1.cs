@@ -57,7 +57,7 @@ namespace karbantartasAdmin
             userLogedIn.Add("username", usernameTxtBox.Text);
             userLogedIn.Add("password", passTxtBox.Text);
 
-            string linkString = $"https://localhost:44336/api/users?luname={user.Username}&lpass={user.Password}"; // igy egyszerubb a string
+            string linkString = $"https://localhost:44336/api/Users?luname={user.Username}&lpass={user.Password}"; // igy egyszerubb a string
                                                                                                                    //keszitese, nem kell a +-jel meg a tobbi idozojel, eszkepeles stb... ha a string tobb soros, akkor mehet a
                                                                                                                    // $@" ... " megoldassal akarhany sorba es a vegen a ; kell meg. A parameterek mindig a {} koze keruljenek.
 
@@ -65,10 +65,11 @@ namespace karbantartasAdmin
 
             //rClient.httpMethod = httpVerb.GET;
             //rClient.endPoint = "https://localhost:44336/api/users?luname="+ user.Username + "&lpass=" + user.Password;          
-            JObject jSONResponse = null;  //Newtonsoft.Json.Linq. kiemelve, az importban benne van, felesleges LB
+            JArray jSONResponse = null;  //Newtonsoft.Json.Linq. kiemelve, az importban benne van, felesleges LB
             //string strResponse = string.Empty; // felesleges LB
 
             string strResponse = rClient.makeRequest();
+           
 
             if (strResponse != "{}")
             {
@@ -80,19 +81,21 @@ namespace karbantartasAdmin
                 UserLoginAdministrator._LoginOK = false;
                 //UserLoginAdministrator._roleId = 0; //nem kell, csak proba volt
             }
+            System.Diagnostics.Debug.Write(strResponse);
 
-            jSONResponse = JObject.Parse(strResponse);      //ezek kerulhetnenek a static classba
-            userLogedIn.Add("id", jSONResponse.GetValue("UsersId"));
-            UserLoginAdministrator._userId = (int)jSONResponse.GetValue("UserId");
-            userLogedIn.Add("fullName", jSONResponse.GetValue("fullName"));
-            UserLoginAdministrator._username = (string)jSONResponse.GetValue("username");
-            UserLoginAdministrator._fullName = (string)jSONResponse.GetValue("fullName");
-            userLogedIn.Add("roleId", jSONResponse.GetValue("roleId"));
-            UserLoginAdministrator._roleId = (int)jSONResponse.GetValue("roleId");
-            userLogedIn.Add("token", jSONResponse.GetValue("token"));
-            UserLoginAdministrator._token = (string)jSONResponse.GetValue("token");
-            userLogedIn.Add("occupationId", jSONResponse.GetValue("occupationId"));
-            UserLoginAdministrator._occupationId = (int)jSONResponse.GetValue("occupationId");
+            jSONResponse = JArray.Parse(strResponse);      //ezek kerulhetnenek a static classba
+            userLogedIn.Add("id", jSONResponse[0].SelectToken("usersId"));
+            System.Diagnostics.Debug.WriteLine("!!!!!!" + userLogedIn.GetValue("id"));
+            UserLoginAdministrator._userId = (int)userLogedIn.GetValue("id");
+            userLogedIn.Add("fullName", jSONResponse[0].SelectToken("fullName"));
+            UserLoginAdministrator._username = (string)jSONResponse[0].SelectToken("username");
+            UserLoginAdministrator._fullName = (string)jSONResponse[0].SelectToken("fullName");
+            userLogedIn.Add("roleId", jSONResponse[0].SelectToken("roleId"));
+            UserLoginAdministrator._roleId = (int)jSONResponse[0].SelectToken("roleId");
+            userLogedIn.Add("token", jSONResponse[0].SelectToken("token"));
+            UserLoginAdministrator._token = (string)jSONResponse[0].SelectToken("token");
+            userLogedIn.Add("occupationId", jSONResponse[0].SelectToken("occupationId"));
+            UserLoginAdministrator._occupationId = (int)jSONResponse[0].SelectToken("occupationId");
 
 
             debugOutput(strResponse);
